@@ -16,7 +16,12 @@ i18n
         translation: {
           searchBar: {
             filter: "Filter",
-            search: "Found a contact"
+            search: "Search a contact"
+          },
+          footer:{
+            favorites:"Favorites",
+            languages: "Languages",
+            contacts: "Contacts"
           }
         }
       },
@@ -25,6 +30,11 @@ i18n
           searchBar: {
             filter: "Filtra",
             search: "Cerca un contatto"
+          },
+          footer:{
+            favorites:"Preferiti",
+            languages: "Lingue",
+            contacts: "Contatti"
           }
         }
       }

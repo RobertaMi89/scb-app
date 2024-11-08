@@ -1,11 +1,14 @@
-import SearchBar from "./components/molecules/SearchBar";
+import Header from "./components/template/Header"
 import ContactList from "./components/organisms/ContactList";
+import Footer from "./components/template/Footer";
 
 function App() {
+
   return (
     <div>
-      <SearchBar />
+      <Header />
       <ContactList />
+      <Footer />
     </div>
   );
 }
