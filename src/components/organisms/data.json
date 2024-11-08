@@ -1,0 +1,64 @@
+{
+    "contacts": {
+        "1": {
+            "name": "Luca",
+            "surname": "Bianchi",
+            "phone": "+391234567890",
+            "email": "luca.bianchi@example.com"
+        },
+        "2": {
+            "name": "Anna",
+            "surname": "Verdi",
+            "phone": "+391234567891",
+            "email": "anna.verdi@example.com"
+        },
+        "3": {
+            "name": "Marco",
+            "surname": "Rossi",
+            "phone": "+391234567892",
+            "email": "marco.rossi@example.com"
+        },
+        "4": {
+            "name": "Elena",
+            "surname": "Neri",
+            "phone": "+391234567893",
+            "email": "elena.neri@example.com"
+        },
+        "5": {
+            "name": "Giovanni",
+            "surname": "Conti",
+            "phone": "+391234567894",
+            "email": "giovanni.conti@example.com"
+        },
+        "6": {
+            "name": "Marta",
+            "surname": "Gialli",
+            "phone": "+391234567895",
+            "email": "marta.gialli@example.com"
+        },
+        "7": {
+            "name": "Paolo",
+            "surname": "Moretti",
+            "phone": "+391234567896",
+            "email": "paolo.moretti@example.com"
+        },
+        "8": {
+            "name": "Chiara",
+            "surname": "Ricci",
+            "phone": "+391234567897",
+            "email": "chiara.ricci@example.com"
+        },
+        "9": {
+            "name": "Francesco",
+            "surname": "Esposito",
+            "phone": "+391234567898",
+            "email": "francesco.esposito@example.com"
+        },
+        "10": {
+            "name": "Silvia",
+            "surname": "Ferrari",
+            "phone": "+391234567899",
+            "email": "silvia.ferrari@example.com"
+        }
+    }
+}
