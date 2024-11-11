@@ -16,7 +16,7 @@ function SearchBar() {
 
     return (
         <>
-            <form className="max-w-lg mx-auto">
+            <form className="mx-auto">
                 <div className="flex relative">
 
                     <Button
