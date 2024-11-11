@@ -25,6 +25,7 @@ i18n
             tel:"Telephone number",
             email:"Email",
             notes:"Notes",
+            favorites:"Favorites",
           },
           addContact:{
             create:"Create a new contact",
@@ -32,8 +33,6 @@ i18n
             save:"Save"
         },
           footer:{
-            favorites:"Favorites",
-            languages: "Languages",
             contacts: "Contacts"
           }
         }
@@ -51,6 +50,7 @@ i18n
             tel:"Numero di telefono",
             email:"Email",
             notes:"Note",
+            favorites:"Preferiti",
           },
           addContact:{
             create:"Crea un nuovo contatto",
@@ -58,8 +58,6 @@ i18n
             save:"Salva"
           },
           footer:{
-            favorites:"Preferiti",
-            languages: "Lingue",
             contacts: "Contatti"
           }
         }
