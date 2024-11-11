@@ -12,7 +12,7 @@ interface ModalProps {
 const Modal = ({ onClose, children }: ModalProps) => {
     const { t } = useTranslation();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [imgProfile, setImgProfile] = useState<string | null>(null);
+    const [image, setImage] = useState<string | null>(null);
     const [textAreaValue, setTextAreaValue] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
@@ -33,7 +33,7 @@ const Modal = ({ onClose, children }: ModalProps) => {
             reader.readAsDataURL(file);
             reader.onloadend = () => {
                 const base64String = reader.result as string;
-                setImgProfile(base64String);
+                setImage(base64String);
                 console.log("Immagine convertita in base64:", base64String);
             };
         }
@@ -50,7 +50,7 @@ const Modal = ({ onClose, children }: ModalProps) => {
 
         set(contactRef, {
             id,
-            imgProfile,
+            image,
             name,
             surname,
             telephone,
@@ -96,7 +96,7 @@ const Modal = ({ onClose, children }: ModalProps) => {
                         onClick={handleButtonClick}
                         className="flex items-center space-x-2 bg-yellow-200 rounded-full p-5"
                     >
-                        <img src={imgProfile || addImg} alt={t("addContact.addImage")} className="w-12 h-12" />
+                        <img src={image || addImg} alt={t("addContact.addImage")} className="w-12 h-12" />
                     </button>
 
                     <input
