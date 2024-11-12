@@ -1,11 +1,14 @@
-import { useFavorites } from '../../context/FavoritesContext';
+import { useContacts } from '../../context/ContactsContext';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Contact } from "../../types/Contact";
+import ContactAvatar from "../atoms/ContactAvatar";
 
 const Favorites: React.FC = () => {
-    const { favorites } = useFavorites();
+    const { contacts } = useContacts();
     const { t } = useTranslation();
+
+    const favorites = contacts.filter((contact) => contact.favorite);
 
     return (
         <div className="container mx-auto p-4">
@@ -19,11 +22,7 @@ const Favorites: React.FC = () => {
                             <Link to={`/contact/${contact.id}`}>
                                 <div className="flex items-center space-x-4 rtl:space-x-reverse">
                                     <div className="flex-shrink-0">
-                                        <img
-                                            src={contact.image || "/default-avatar.png"}
-                                            alt={contact.name}
-                                            className="w-12 h-12 rounded-full mt-2"
-                                        />
+                                        <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-12 h-12 " />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
@@ -35,9 +34,8 @@ const Favorites: React.FC = () => {
                         </li>
                     ))}
                 </ul>
-            )
-            }
-        </div >
+            )}
+        </div>
     );
 };
 
