@@ -32,6 +32,10 @@ i18n
             addImage:"Add Image",
             save:"Save"
         },
+        contactDetailPage:{
+            edit:"Edit",
+            delete:"Delete"
+        },
           footer:{
             contacts: "Contacts"
           }
@@ -57,6 +61,10 @@ i18n
             addImage:"Aggiungi Immagine",
             save:"Salva"
           },
+          contactDetailPage:{
+            edit:"Modifica",
+            delete:"Elimina"
+        },
           footer:{
             contacts: "Contatti"
           }
