@@ -11,8 +11,6 @@ function App() {
 
   const location = useLocation();
   const isDetailPage = location.pathname.startsWith("/contact/");
-  console.log("Current location:", location);
-
 
   return (
     <div className="flex flex-col min-h-screen">

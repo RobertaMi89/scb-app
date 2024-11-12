@@ -19,6 +19,10 @@ interface ContactsContextType {
     error: string | null;
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
+    sortBy: "name" | "surname" | "email";
+    setSortBy: (criteria: "name" | "surname" | "email") => void;
+    ascending: boolean;
+    toggleSortOrder: () => void;
 }
 
 const ContactsContext = createContext<ContactsContextType | undefined>(undefined);
@@ -36,6 +40,8 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
     const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
+    const [ascending, setAscending] = useState<boolean>(true);
 
     const updateContact = async (contact: Contact) => {
         try {
@@ -88,10 +94,24 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
         }
     };
 
-    useEffect(() => {
-        setFilteredContacts(contacts);
-    }, [contacts]);
+    const toggleSortOrder = () => {
+        setAscending((prev) => !prev);
+    };
 
+    const sortContacts = (contacts: Contact[], criteria: "name" | "surname" | "email", ascending: boolean) => {
+        return [...contacts].sort((a, b) => {
+            const fieldA = a[criteria].toLowerCase();
+            const fieldB = b[criteria].toLowerCase();
+            if (fieldA < fieldB) return ascending ? -1 : 1;
+            if (fieldA > fieldB) return ascending ? 1 : -1;
+            return 0;
+        });
+    };
+
+    useEffect(() => {
+        const sortedContacts = sortContacts(contacts, sortBy, ascending);
+        setFilteredContacts(sortedContacts);
+    }, [contacts, sortBy, ascending]);
 
     return (
         <ContactsContext.Provider
@@ -107,6 +127,10 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
                 error,
                 setLoading,
                 setError,
+                sortBy,
+                setSortBy,
+                ascending,
+                toggleSortOrder,
             }}
         >
             {children}

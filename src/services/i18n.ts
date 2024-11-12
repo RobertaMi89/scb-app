@@ -16,7 +16,7 @@ i18n
         translation: {
             loading:"Loading",
           searchBar: {
-            filter: "Filter",
+            order: "Order",
             search: "Search a contact"
           },
           contact:{
@@ -46,8 +46,8 @@ i18n
         translation: {
             loading:"Caricamento",
             searchBar: {
-            filter: "Filtra",
-            search: "Cerca un contatto"
+              order: "Ordina",
+              search: "Cerca un contatto"
           },
           contact:{
             name:"Nome",
