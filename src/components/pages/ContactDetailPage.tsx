@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getDatabase, ref, get } from 'firebase/database';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getDatabase, ref, get, remove } from "firebase/database";
 import { useTranslation } from "react-i18next";
 import { Contact } from "../../types/Contact";
+
+import Modal from "../molecules/Modal";
+import Button from "../atoms/Button";
+import ContactAvatar from "../atoms/ContactAvatar";
 
 const ContactDetailPage = () => {
     const { t } = useTranslation();
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [contact, setContact] = useState<Contact | null>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -28,21 +34,78 @@ const ContactDetailPage = () => {
         }
     }, [id]);
 
+    const handleDeleteContact = () => {
+        if (id) {
+            const db = getDatabase();
+            const contactRef = ref(db, "contacts/" + id);
+            remove(contactRef)
+                .then(() => {
+                    navigate("/contacts");
+                })
+                .catch((error) => {
+                    console.error("Error deleting contact:", error);
+                });
+        }
+    };
+
+    const handleEditContact = (updatedContact: Contact) => {
+        setContact(updatedContact);
+    };
+
+    const handleOpenEditModal = () => {
+        setIsEditModalOpen(true);
+    };
+
+    const handleCloseEditModal = () => {
+        setIsEditModalOpen(false);
+    };
+
     if (!contact) {
-        return <div>{t("loading")}</div>;
+        return <div className="text-center text-xl">{t("loading")}</div>;
     }
 
     return (
-        <div className="contact-detail">
-            <img
-                src={contact.image || "/default-avatar.png"}
-                alt={t("contactDetail.imageAlt")}
-                className="contact-image"
-            />
-            <p>{t("contact.name")}: {contact.name}</p>
-            <p>{t("contact.surname")}: {contact.surname}</p>
-            <p>{t("contact.phone")}: {contact.phone}</p>
-            <p>{t("contact.email")}: {contact.email}</p>
+        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6">
+            <div className="relative flex justify-center">
+                <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-36 h-36 text-6xl " />
+            </div>
+
+            <div className="space-y-4 text-center">
+
+                <p className="text-lg font-semibold">{t("contact.name")}: <span className="text-gray-700">{contact.name}</span></p>
+                <p className="text-lg font-semibold">{t("contact.surname")}: <span className="text-gray-700">{contact.surname}</span></p>
+                <p className="text-lg font-semibold">{t("contact.tel")}: <span className="text-gray-700">{contact.phone}</span></p>
+                <p className="text-lg font-semibold">{t("contact.email")}: <span className="text-gray-700">{contact.email}</span></p>
+            </div>
+
+            <div className="flex justify-center space-x-4">
+                <Button
+                    onClick={handleOpenEditModal}
+                    className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                >
+                    {t("contactDetailPage.edit")}
+                </Button>
+                <Button
+                    onClick={handleDeleteContact}
+                    className="px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200"
+                >
+                    {t("contactDetailPage.delete")}
+                </Button>
+            </div>
+
+            {isEditModalOpen && (
+                <Modal
+                    isOpen={isEditModalOpen}
+                    onClose={handleCloseEditModal}
+                    onConfirm={handleEditContact}
+                    title={t("contactDetailPage.edit")}
+                    message={{
+                        close: t("contact.close"),
+                        save: t("addContact.save"),
+                    }}
+                    contact={contact}
+                />
+            )}
         </div>
     );
 };
