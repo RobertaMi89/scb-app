@@ -26,6 +26,7 @@ i18n
             email:"Email",
             notes:"Notes",
             favorites:"Favorites",
+            notFound:"Contact not found"
           },
           addContact:{
             create:"Create a new contact",
@@ -55,6 +56,7 @@ i18n
             email:"Email",
             notes:"Note",
             favorites:"Preferiti",
+            notFound:"Contatto non trovato"
           },
           addContact:{
             create:"Crea un nuovo contatto",

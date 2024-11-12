@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { Contact } from '../types/Contact';
 import { db } from '../services/firebaseConfig';
 import { ref, set } from 'firebase/database';
@@ -9,7 +9,9 @@ interface ContactsProviderProps {
 
 interface ContactsContextType {
     contacts: Contact[];
+    filteredContacts: Contact[];
     setContacts: (contacts: Contact[]) => void;
+    setFilteredContacts: (contacts: Contact[]) => void;
     updateContact: (contact: Contact) => void;
     deleteContact: (id: string) => void;
     toggleFavorite: (id: string) => void;
@@ -31,6 +33,7 @@ export const useContacts = () => {
 
 export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) => {
     const [contacts, setContacts] = useState<Contact[]>([]);
+    const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -85,11 +88,18 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
         }
     };
 
+    useEffect(() => {
+        setFilteredContacts(contacts);
+    }, [contacts]);
+
+
     return (
         <ContactsContext.Provider
             value={{
                 contacts,
+                filteredContacts,
                 setContacts,
+                setFilteredContacts,
                 updateContact,
                 deleteContact,
                 toggleFavorite,

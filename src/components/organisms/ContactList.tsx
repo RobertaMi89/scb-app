@@ -10,7 +10,7 @@ import starFill from '../../assets/starFill.svg';
 import ContactAvatar from '../atoms/ContactAvatar';
 
 const ContactList: React.FC = () => {
-  const { contacts, setContacts, loading, setLoading, setError, error, toggleFavorite } = useContacts();
+  const { setContacts, loading, setLoading, setError, error, toggleFavorite, filteredContacts } = useContacts();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -36,8 +36,7 @@ const ContactList: React.FC = () => {
         }
       );
     };
-
-    fetchContacts();
+    fetchContacts()
   }, [setContacts, setLoading, setError]);
 
   const handleToggleFavorite = (contactId: string) => {
@@ -47,7 +46,7 @@ const ContactList: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Caricamento contatti...</div>;
+    return <div>{t("loading")}</div>;
   }
 
   if (error) {
@@ -57,8 +56,8 @@ const ContactList: React.FC = () => {
   return (
     <>
       <ul className="max-w-md divide-y mx-3 divide-gray-200 dark:divide-gray-700">
-        {contacts.length > 0 ? (
-          contacts.map((contact) => {
+        {filteredContacts.length > 0 ? (
+          filteredContacts.map((contact) => {
             const isFavorite = contact.favorite;
 
             return (
@@ -88,7 +87,7 @@ const ContactList: React.FC = () => {
             );
           })
         ) : (
-          <li>{t('contact.noContactsFound')}</li>
+          <li>{t('contact.notFound')}</li>
         )}
       </ul>
     </>
