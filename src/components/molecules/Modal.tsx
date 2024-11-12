@@ -1,23 +1,49 @@
-import { useRef, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useRef, useState, useEffect, ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { getDatabase, ref, set } from "firebase/database";
-
-import addImg from "../../assets/img-box.svg";
+import { getDatabase, ref, update } from "firebase/database";
+import { Contact } from "../../types/Contact";
+import NoAvatar from "../../assets/img-box.svg";
+import Edit from "../../assets/edit.svg"
+import PlusIcon from "../../assets/plus.svg"
 
 interface ModalProps {
     onClose: () => void;
+    isOpen: boolean;
     children?: React.ReactNode;
+    onConfirm?: (updatedContact: Contact) => void;
+    contact?: Contact | null;
+    onUpdate?: (updatedContact: Contact) => void;
+    title: string;
+    message: {
+        close: string;
+        save: string;
+    };
 }
 
-const Modal = ({ onClose, children }: ModalProps) => {
+const Modal = ({ onClose, isOpen, contact, onUpdate, message }: ModalProps) => {
     const { t } = useTranslation();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const [image, setImage] = useState<string | null>(null);
-    const [textAreaValue, setTextAreaValue] = useState<string>("");
-    const [name, setName] = useState<string>("");
-    const [surname, setSurname] = useState<string>("");
-    const [telephone, setTelephone] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
+    const [image, setImage] = useState<string | null>(contact?.image || null);
+    const [textAreaValue, setTextAreaValue] = useState<string>(contact?.description || "");
+    const [name, setName] = useState<string>(contact?.name || "");
+    const [surname, setSurname] = useState<string>(contact?.surname || "");
+    const [telephone, setTelephone] = useState<string>(contact?.phone || "");
+    const [email, setEmail] = useState<string>(contact?.email || "");
+    const [favorite, setFavorite] = useState<boolean>(contact?.favorite || false);
+    const isAddMode = !contact;
+
+    useEffect(() => {
+        if (contact) {
+            setImage(contact.image);
+            setTextAreaValue(contact.description || "");
+            setName(contact.name);
+            setSurname(contact.surname);
+            setTelephone(contact.phone);
+            setEmail(contact.email);
+            setFavorite(contact.favorite);
+        }
+    }, [contact]);
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
@@ -28,49 +54,60 @@ const Modal = ({ onClose, children }: ModalProps) => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
                 const base64String = reader.result as string;
                 setImage(base64String);
-                console.log("Immagine convertita in base64:", base64String);
             };
         }
     };
 
-    const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTextAreaValue(event.target.value);
-    };
-
     const handleSave = () => {
-        const db = getDatabase();
-        const id = crypto.randomUUID();
-        const contactRef = ref(db, "contacts/" + id);
+        if (!contact) return;
 
-        set(contactRef, {
-            id,
-            image,
-            name,
-            surname,
-            telephone,
-            email,
-            description: textAreaValue,
-        })
+        const updatedFields: Partial<Contact> = {};
+
+        if (name !== contact.name) updatedFields.name = name;
+        if (surname !== contact.surname) updatedFields.surname = surname;
+        if (telephone !== contact.phone) updatedFields.phone = telephone;
+        if (email !== contact.email) updatedFields.email = email;
+        if (image !== contact.image) updatedFields.image = image;
+        if (favorite !== contact.favorite) updatedFields.favorite = favorite;
+        if (textAreaValue !== (contact.description || "")) updatedFields.description = textAreaValue;
+
+        if (Object.keys(updatedFields).length === 0) {
+            console.log("Nessuna modifica rilevata.");
+            return;
+        }
+
+        if (onUpdate) onUpdate({ ...contact, ...updatedFields });
+
+        const db = getDatabase();
+        const contactRef = ref(db, `contacts/${contact.id}`);
+
+        update(contactRef, updatedFields)
             .then(() => {
-                console.log("Dati salvati con successo!");
+                console.log("Contatto aggiornato con successo!");
                 onClose();
             })
             .catch((error) => {
-                console.error("Errore durante il salvataggio:", error);
+                console.error("Errore durante l'aggiornamento:", error);
             });
     };
 
-    return (
+    function handleTextAreaChange(_event: ChangeEvent<HTMLTextAreaElement>): void {
+        throw new Error("Function not implemented.");
+    }
+
+    function handleOpenEditModal(_event: React.MouseEvent<HTMLButtonElement>): void {
+        throw new Error("Function not implemented.");
+    }
+
+    return isOpen ? (
         <div className="modal-overlay fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 z-50 flex justify-center items-center">
             <div className="modal-content relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 w-full max-w-xl">
                 <div className="flex items-center justify-between border-b p-4">
-                    {children}
                     <div className="flex items-center justify-end">
                         <button type="button" onClick={onClose}>
                             <svg
@@ -90,15 +127,21 @@ const Modal = ({ onClose, children }: ModalProps) => {
                         </button>
                     </div>
                 </div>
+
                 <div className="flex flex-col items-center justify-center my-5">
                     <button
                         type="button"
                         onClick={handleButtonClick}
-                        className="flex items-center space-x-2 bg-yellow-200 rounded-full p-5"
+                        className="flex items-center space-x-2 rounded-full p-5"
                     >
-                        <img src={image || addImg} alt={t("addContact.addImage")} className="w-12 h-12" />
+                        <img src={image || NoAvatar} alt={t("addContact.addImage")} className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 shadow-lg" />
                     </button>
-
+                    <button
+                        onClick={handleOpenEditModal}
+                        className="absolute left-64 transform -translate-x-1/2 top-24 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
+                    >
+                        <img src={isAddMode ? PlusIcon : Edit} alt={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")} className="w-6 h-6" />
+                    </button>
                     <input
                         type="file"
                         ref={fileInputRef}
@@ -106,76 +149,59 @@ const Modal = ({ onClose, children }: ModalProps) => {
                         accept="image/*"
                         style={{ display: "none" }}
                     />
-
                 </div>
+
                 <div className="p-4 md:p-5 space-y-4">
                     <form className="space-y-4" action="#">
-                        <div>
-                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                onChange={(e) => setName(e.target.value)}
-                                placeholder={t("contact.name")}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="surname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-                            <input
-                                type="text"
-                                name="surname"
-                                id="surname"
-                                onChange={(e) => setSurname(e.target.value)}
-                                placeholder={t("contact.surname")}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="telephone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-                            <input
-                                type="tel"
-                                name="telephone"
-                                id="telephone"
-                                onChange={(e) => setTelephone(e.target.value)}
-                                placeholder={t("contact.tel")}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder={t("contact.email")}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            />
-                        </div>
+
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder={t("contact.name")}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required
+                        />
+                        <input
+                            type="text"
+                            value={surname}
+                            onChange={(e) => setSurname(e.target.value)}
+                            placeholder={t("contact.surname")}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        />
+                        <input
+                            type="text"
+                            value={telephone}
+                            onChange={(e) => setTelephone(e.target.value)}
+                            placeholder={t("contact.phone")}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required
+                        />
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder={t("contact.email")}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        />
                         <textarea
                             className="w-full p-2.5 border border-gray-300 rounded-lg text-gray-900 bg-gray-50 dark:bg-gray-600 dark:text-white"
                             placeholder={t("contact.notes")}
                             value={textAreaValue}
                             onChange={handleTextAreaChange}
                         ></textarea>
-                        <div className="p-4 md:p-5 border-t space-y-4 flex justify-center">
-                            <button
-                                type="button"
-                                onClick={handleSave}
-                                className="text-white bg-blue-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
-                            >
-                                {t("addContact.save")}
-                            </button>
-                        </div>
+
                     </form>
+                </div>
+
+                <div className="p-4 md:p-5 border-t space-y-4 flex justify-center">
+                    <button onClick={handleSave} className="text-white bg-blue-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 mt-4">
+                        {message.save}
+                    </button>
                 </div>
             </div>
         </div>
-    );
+    ) : null;
 };
 
 export default Modal;

@@ -14,7 +14,6 @@ function AddContact() {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-
     };
 
     return (
@@ -25,10 +24,19 @@ function AddContact() {
             </Button>
 
             {isModalOpen && (
-                <Modal onClose={handleCloseModal}>
+                <Modal
+                    onClose={handleCloseModal}
+                    isOpen={isModalOpen}
+                    title={t("addContact.create")}
+                    message={{
+                        close: t("modal.close"),
+                        save: t("addContact.save")
+                    }}
+                >
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                         {t("addContact.create")}
                     </h2>
+
                 </Modal>
             )}
         </>
