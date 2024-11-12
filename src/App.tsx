@@ -4,7 +4,7 @@ import ContactList from "./components/organisms/ContactList";
 import Footer from "./components/template/Footer";
 import { LanguageProvider } from "./context/LanguageContext";
 import ContactDetailPage from './components/pages/ContactDetailPage';
-import { FavoritesProvider } from './context/FavoritesContext';
+import { ContactsProvider } from './context/ContactsContext';
 import Favorites from './components/pages/FavoritesPage';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <LanguageProvider>
-        <FavoritesProvider>
+        <ContactsProvider>
           {!isDetailPage && <Header />}
           <Routes>
             <Route path="/contact/:id" element={<ContactDetailPage />} />
@@ -26,7 +26,7 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
           </Routes>
           {!isDetailPage && <Footer />}
-        </FavoritesProvider>
+        </ContactsProvider>
       </LanguageProvider>
     </div>
   );
