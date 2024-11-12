@@ -10,10 +10,15 @@ const Favorites: React.FC = () => {
 
     const favorites = contacts.filter((contact) => contact.favorite);
 
+    const sortedFavorites = favorites.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+    });
+
     return (
         <div className="container mx-auto p-4">
-            <h2 className="text-xl font-semibold mb-4">{t("favorites.title")}</h2>
-            {favorites.length === 0 ? (
+            {sortedFavorites.length === 0 ? (
                 <p>{t("favorites.noFavorites")}</p>
             ) : (
                 <ul>
@@ -22,7 +27,7 @@ const Favorites: React.FC = () => {
                             <Link to={`/contact/${contact.id}`}>
                                 <div className="flex items-center space-x-4 rtl:space-x-reverse">
                                     <div className="flex-shrink-0">
-                                        <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-12 h-12 " />
+                                        <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-12 h-12" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">

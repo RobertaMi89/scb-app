@@ -18,7 +18,7 @@ function AddContact() {
 
     return (
         <>
-            <Button className="flex flex-row" onClick={handleAddContact}>
+            <Button className="flex flex-row my-5" onClick={handleAddContact}>
                 <img src={AddBtn} className="w-8 h-8" alt={t("addContact.create")} />
                 <span>{t("addContact.create")}</span>
             </Button>

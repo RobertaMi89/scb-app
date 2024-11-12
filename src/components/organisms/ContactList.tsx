@@ -71,6 +71,7 @@ const ContactList: React.FC = () => {
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                         {contact.name} {contact.surname}
                       </p>
+                      <p>{contact.email}</p>
                     </div>
                   </div>
                 </Link>

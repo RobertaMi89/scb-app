@@ -35,7 +35,7 @@ const ContactAvatar = ({ name, image, className }: ContactAvatarProps) => {
     ) : (
         <div
             style={{ backgroundColor: bgColor }}
-            className={`w-12 h-12 rounded-full flex items-center justify-center mt-2 text-white text-lg font-semibold ${className}`}  // Aggiunta del className dinamico
+            className={`w-12 h-12 rounded-full flex items-center justify-center mt-2 text-white font-semibold ${className}`}
         >
             {initial}
         </div>

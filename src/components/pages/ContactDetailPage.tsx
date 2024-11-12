@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDatabase, ref, get, remove } from "firebase/database";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Contact } from "../../types/Contact";
-
 import Modal from "../molecules/Modal";
 import Button from "../atoms/Button";
 import ContactAvatar from "../atoms/ContactAvatar";
+import arrowBackToHome from "../../assets/arrow.svg";
 
 const ContactDetailPage = () => {
     const { t } = useTranslation();
@@ -66,18 +67,20 @@ const ContactDetailPage = () => {
 
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6">
+            <div className="flex items-center justify-start p-2">
+                <Link to="/" className="text-gray-600 hover:text-gray-800">
+                    <img src={arrowBackToHome} alt="Go to homepage" className="w-6 h-6" />
+                </Link>
+            </div>
             <div className="relative flex justify-center">
                 <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-36 h-36 text-6xl " />
             </div>
-
             <div className="space-y-4 text-center">
-
                 <p className="text-lg font-semibold">{t("contact.name")}: <span className="text-gray-700">{contact.name}</span></p>
                 <p className="text-lg font-semibold">{t("contact.surname")}: <span className="text-gray-700">{contact.surname}</span></p>
                 <p className="text-lg font-semibold">{t("contact.tel")}: <span className="text-gray-700">{contact.phone}</span></p>
                 <p className="text-lg font-semibold">{t("contact.email")}: <span className="text-gray-700">{contact.email}</span></p>
             </div>
-
             <div className="flex justify-center space-x-4">
                 <Button
                     onClick={handleOpenEditModal}
@@ -92,7 +95,6 @@ const ContactDetailPage = () => {
                     {t("contactDetailPage.delete")}
                 </Button>
             </div>
-
             {isEditModalOpen && (
                 <Modal
                     isOpen={isEditModalOpen}

@@ -16,7 +16,10 @@ i18n
         translation: {
             loading:"Loading",
           searchBar: {
-            order: "Order",
+            sort: "Sort by",
+            sortByName:"Name",
+            sortBySurname:"Surname",
+            sortByEmail:"Email",
             search: "Search a contact"
           },
           contact:{
@@ -46,7 +49,10 @@ i18n
         translation: {
             loading:"Caricamento",
             searchBar: {
-              order: "Ordina",
+              sort: "Ordina per",
+              sortByName:"Nome",
+              sortBySurname:"Cognome",
+              sortByEmail:"Email",
               search: "Cerca un contatto"
           },
           contact:{

@@ -108,7 +108,7 @@ const Modal = ({ onClose, isOpen, contact, onUpdate, message }: ModalProps) => {
         <div className="modal-overlay fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 z-50 flex justify-center items-center">
             <div className="modal-content relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 w-full max-w-xl">
                 <div className="flex items-center justify-between border-b p-4">
-                    <div className="flex items-center justify-end">
+                    <div className="flex items-center w-full justify-end">
                         <button type="button" onClick={onClose}>
                             <svg
                                 className="w-3 h-3"
@@ -153,7 +153,6 @@ const Modal = ({ onClose, isOpen, contact, onUpdate, message }: ModalProps) => {
 
                 <div className="p-4 md:p-5 space-y-4">
                     <form className="space-y-4" action="#">
-
                         <input
                             type="text"
                             value={name}
@@ -173,7 +172,7 @@ const Modal = ({ onClose, isOpen, contact, onUpdate, message }: ModalProps) => {
                             type="text"
                             value={telephone}
                             onChange={(e) => setTelephone(e.target.value)}
-                            placeholder={t("contact.phone")}
+                            placeholder={t("contact.tel")}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             required
                         />
@@ -190,10 +189,8 @@ const Modal = ({ onClose, isOpen, contact, onUpdate, message }: ModalProps) => {
                             value={textAreaValue}
                             onChange={handleTextAreaChange}
                         ></textarea>
-
                     </form>
                 </div>
-
                 <div className="p-4 md:p-5 border-t space-y-4 flex justify-center">
                     <button onClick={handleSave} className="text-white bg-blue-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 mt-4">
                         {message.save}
