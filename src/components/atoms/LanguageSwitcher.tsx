@@ -4,7 +4,7 @@ import Italy from "../../assets/italy.svg";
 import UK from "../../assets/uk.svg";
 
 const LanguageSwitcher = () => {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const handleLanguageChange = (selectedOption: SingleValue<{ value: string; label: JSX.Element }>) => {
         if (selectedOption) {
@@ -13,8 +13,8 @@ const LanguageSwitcher = () => {
     };
 
     const options = [
-        { value: "it", label: <span><img src={Italy} alt="Italiano" className="w-6 h-6 mr-2" /> </span> },
-        { value: "en", label: <span><img src={UK} alt="English" className="w-6 h-6 mr-2" /> </span> }
+        { value: "it", label: <span><img src={Italy} alt={t('italian_flag')} className="w-6 h-6 mr-2" /> </span> },
+        { value: "en", label: <span><img src={UK} alt={t('british_flag')} className="w-6 h-6 mr-2" /> </span> }
     ];
 
     return (
@@ -24,6 +24,7 @@ const LanguageSwitcher = () => {
                 defaultValue={options.find(option => option.value === i18n.language)}
                 onChange={handleLanguageChange}
                 className="custom-select w-10 bg-transparent"
+                aria-label={t('language_selection')}
                 styles={{
                     control: (provided) => ({
                         ...provided,

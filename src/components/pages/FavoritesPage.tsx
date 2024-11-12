@@ -24,7 +24,10 @@ const Favorites: React.FC = () => {
                 <ul>
                     {favorites.map((contact: Contact) => (
                         <li key={contact.id} className="flex items-center space-x-4 mb-4">
-                            <Link to={`/contact/${contact.id}`}>
+                            <Link
+                                to={`/contact/${contact.id}`}
+                                aria-label={t("favorites.viewContact",
+                                    { name: `${contact.name} ${contact.surname}` })}>
                                 <div className="flex items-center space-x-4 rtl:space-x-reverse">
                                     <div className="flex-shrink-0">
                                         <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-12 h-12" />

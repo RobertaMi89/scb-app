@@ -84,6 +84,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
                 <Button
                     onClick={toggleDropdown}
                     className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                    aria-label={t('searchBar.sort')}
+                    aria-haspopup="listbox"
                 >
                     {t("searchBar.sort")}
                     <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -102,10 +104,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
                     placeholder={t('searchBar.search')}
                     value={query}
                     onChange={handleSearch}
+                    aria-label={t('searchBar.search')}
                 />
                 <Button
                     onClick={toggleAscending}
                     className="ml-2 py-2 px-4 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    aria-label={ascending ? t('searchBar.ascending') : t('searchBar.descending')}
                 >
                     <img
                         src={ascending ? sortDisc : sortAsc}

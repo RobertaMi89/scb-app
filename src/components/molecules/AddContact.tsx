@@ -19,7 +19,11 @@ function AddContact() {
     return (
         <>
             <Button className="flex flex-row my-5" onClick={handleAddContact}>
-                <img src={AddBtn} className="w-8 h-8" alt={t("addContact.create")} />
+                <img
+                    src={AddBtn}
+                    className="w-8 h-8"
+                    alt={t("addContact.iconAlt")}
+                    aria-hidden="true" />
                 <span>{t("addContact.create")}</span>
             </Button>
 
@@ -33,7 +37,8 @@ function AddContact() {
                         save: t("addContact.save")
                     }}
                 >
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white"
+                        id="modal-title">
                         {t("addContact.create")}
                     </h2>
 

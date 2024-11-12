@@ -9,18 +9,20 @@ function Footer() {
     const isContactsPage = location.pathname === "/contacts";
 
     return (
-        <footer className="bg-white dark:bg-gray-800 mt-auto">
+        <footer className="bg-white dark:bg-gray-800 mt-auto" role="contentinfo">
             <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
                 <div className="flex flex-row md:flex-row justify-around md:space-x-8">
                     <Link
                         to="/favorites"
                         className={`text-gray-600 dark:text-gray-300 mb-2 md:mb-0 ${isFavoritesPage ? 'font-bold text-blue-500' : ''}`}
+                        aria-label={t("footer.goToFavorites")}
                     >
                         {t("contact.favorites")}
                     </Link>
                     <Link
                         to="/contacts"
                         className={`text-gray-600 dark:text-gray-300 ${isContactsPage ? 'font-bold text-blue-500' : ''}`}
+                        aria-label={t("footer.goToContacts")}
                     >
                         {t("footer.contacts")}
                     </Link>

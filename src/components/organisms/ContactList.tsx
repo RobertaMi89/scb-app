@@ -36,7 +36,8 @@ const ContactList: React.FC = () => {
         }
       );
     };
-    fetchContacts()
+    fetchContacts();
+    return () => setLoading(false);
   }, [setContacts, setLoading, setError]);
 
   const handleToggleFavorite = (contactId: string) => {
@@ -62,7 +63,7 @@ const ContactList: React.FC = () => {
 
             return (
               <li key={contact.id} className="pb-3 sm:pb-4 flex justify-between items-center">
-                <Link to={`/contact/${contact.id}`}>
+                <Link to={`/contact/${contact.id}`} aria-label={t('contact.viewDetails')}>
                   <div className="flex items-center space-x-4 rtl:space-x-reverse">
                     <div className="flex-shrink-0">
                       <ContactAvatar name={contact.name} image={contact.image} />
@@ -76,10 +77,13 @@ const ContactList: React.FC = () => {
                   </div>
                 </Link>
                 <div className="flex items-center space-x-2">
-                  <button onClick={() => handleToggleFavorite(contact.id)} className="focus:outline-none">
+                  <button
+                    onClick={() => handleToggleFavorite(contact.id)}
+                    className="focus:outline-none"
+                    aria-label={isFavorite ? t('contact.removeFromFavorites') : t('contact.addToFavorites')}>
                     <img
                       src={isFavorite ? starFill : starOutline}
-                      alt={t('contact.favorites')}
+                      alt={isFavorite ? t('contact.removeFromFavorites') : t('contact.addToFavorites')}
                       className="w-6 h-6"
                     />
                   </button>

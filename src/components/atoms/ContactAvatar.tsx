@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ContactAvatarProps {
     name: string;
@@ -16,6 +17,7 @@ const generateRandomColor = () => {
 };
 
 const ContactAvatar = ({ name, image, className }: ContactAvatarProps) => {
+    const { t } = useTranslation();
     const [bgColor, setBgColor] = useState<string>("#fff");
 
     useEffect(() => {
@@ -29,11 +31,13 @@ const ContactAvatar = ({ name, image, className }: ContactAvatarProps) => {
     return image ? (
         <img
             src={image}
-            alt={name}
+            alt={name ? `${t('avatar_placeholder', { name })}` : t('avatar_alt')}
             className={`w-12 h-12 rounded-full mt-2 object-cover ${className}`}
         />
     ) : (
         <div
+            role="img"
+            aria-label={name ? `${t('avatar_placeholder', { name })}` : t('avatar_alt')}
             style={{ backgroundColor: bgColor }}
             className={`w-12 h-12 rounded-full flex items-center justify-center mt-2 text-white font-semibold ${className}`}
         >

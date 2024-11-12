@@ -9,7 +9,12 @@ interface DropdownProps {
 const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(({ isOpen, children }, ref) => {
     return (
         isOpen ? (
-            <div ref={ref} className="z-10 mt-11 list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute left-0 mt-2">
+            <div
+                ref={ref}
+                role="menu"
+                aria-expanded={isOpen}
+                aria-hidden={!isOpen}
+                className="z-10 mt-11 list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute left-0 mt-2">
                 {children}
             </div>
         ) : null

@@ -68,8 +68,11 @@ const ContactDetailPage = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg space-y-6">
             <div className="flex items-center justify-start p-2">
-                <Link to="/" className="text-gray-600 hover:text-gray-800">
-                    <img src={arrowBackToHome} alt="Go to homepage" className="w-6 h-6" />
+                <Link
+                    to="/"
+                    className="text-gray-600 hover:text-gray-800"
+                    aria-label={t("backToHome")}>
+                    <img src={arrowBackToHome} alt={t("backToHomeAlt")} className="w-6 h-6" />
                 </Link>
             </div>
             <div className="relative flex justify-center">
@@ -85,12 +88,14 @@ const ContactDetailPage = () => {
                 <Button
                     onClick={handleOpenEditModal}
                     className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                    aria-label={t("contactDetailPage.edit")}
                 >
                     {t("contactDetailPage.edit")}
                 </Button>
                 <Button
                     onClick={handleDeleteContact}
                     className="px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200"
+                    aria-label={t("contactDetailPage.delete")}
                 >
                     {t("contactDetailPage.delete")}
                 </Button>
