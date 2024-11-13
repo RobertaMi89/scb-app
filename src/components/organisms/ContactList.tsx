@@ -1,57 +1,40 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db } from '../../services/firebaseConfig';
-import { ref, onValue, update } from 'firebase/database';
-import { Contact } from '../../types/Contact';
 import { useTranslation } from 'react-i18next';
 import { useContacts } from '../../context/ContactsContext';
+import userNotFound from "../../assets/userNotFound.svg"
 import starOutline from '../../assets/starOutline.svg';
 import starFill from '../../assets/starFill.svg';
 import ContactAvatar from '../atoms/ContactAvatar';
+import ErrorHandler from '../atoms/ErrorHandler';
+import Loading from '../atoms/Loading';
+import { useToast } from '../../context/ToastContext';
 
 const ContactList: React.FC = () => {
-  const { setContacts, loading, setLoading, setError, error, toggleFavorite, filteredContacts } = useContacts();
+  const { contacts, setContacts, loading, setLoading, setError, error, filteredContacts, fetchContacts, updateContact } = useContacts();
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
   useEffect(() => {
-    const fetchContacts = async () => {
-      setLoading(true);
-      const contactsRef = ref(db, 'contacts');
-      onValue(
-        contactsRef,
-        (snapshot) => {
-          setLoading(false);
-          const data = snapshot.val();
-
-          if (data) {
-            const formattedContacts = Object.values(data) as Contact[];
-            setContacts(formattedContacts);
-          } else {
-            setContacts([]);
-          }
-        },
-        (err) => {
-          setLoading(false);
-          setError('Errore nel caricamento dei contatti: ' + err.message);
-        }
-      );
-    };
-    fetchContacts();
+    fetchContacts()
     return () => setLoading(false);
+
   }, [setContacts, setLoading, setError]);
 
   const handleToggleFavorite = (contactId: string) => {
-    toggleFavorite(contactId);
-    const contactRef = ref(db, 'contacts/' + contactId);
-    update(contactRef, { favorite: true });
+    const contactToUpdate = contacts.find((contact) => contact.id === contactId)
+    if (!contactToUpdate) {
+      return showToast('Errore nel modificare il contatto', 'error')
+    }
+    updateContact({ ...contactToUpdate, favorite: !contactToUpdate.favorite })
   };
 
   if (loading) {
-    return <div>{t("loading")}</div>;
+    return <Loading />;
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <ErrorHandler message={error} />;
   }
 
   return (
@@ -77,11 +60,11 @@ const ContactList: React.FC = () => {
                   </div>
                 </Link>
                 <div className="flex items-center space-x-2">
-                  <button
+                  <button id={'star-'.concat(contact.id)}
                     onClick={() => handleToggleFavorite(contact.id)}
                     className="focus:outline-none"
                     aria-label={isFavorite ? t('contact.removeFromFavorites') : t('contact.addToFavorites')}>
-                    <img
+                    <img id={'star-'.concat(contact.id)}
                       src={isFavorite ? starFill : starOutline}
                       alt={isFavorite ? t('contact.removeFromFavorites') : t('contact.addToFavorites')}
                       className="w-6 h-6"
@@ -92,7 +75,10 @@ const ContactList: React.FC = () => {
             );
           })
         ) : (
-          <li>{t('contact.notFound')}</li>
+          <li className="flex items-center justify-center space-x-2 text-gray-500 dark:text-gray-400 py-4">
+            <img src={userNotFound} alt={t('contact.notFound')} className='w-10 h-10' />
+            <span>{t('contact.notFound')}</span>
+          </li>
         )}
       </ul>
     </>

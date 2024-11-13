@@ -1,7 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { Contact } from '../types/Contact';
 import { db } from '../services/firebaseConfig';
-import { ref, set } from 'firebase/database';
+import { ref, set, onValue } from 'firebase/database';
+import { useToast } from './ToastContext';
+import { t } from 'i18next';
 
 interface ContactsProviderProps {
     children: React.ReactNode;
@@ -12,9 +14,10 @@ interface ContactsContextType {
     filteredContacts: Contact[];
     setContacts: (contacts: Contact[]) => void;
     setFilteredContacts: (contacts: Contact[]) => void;
-    updateContact: (contact: Contact) => void;
-    deleteContact: (id: string) => void;
-    toggleFavorite: (id: string) => void;
+    createContact: (contact: Contact) => Promise<boolean>;
+    updateContact: (contact: Contact) => Promise<boolean>;
+    deleteContact: (id: string) => Promise<boolean>;
+    fetchContacts: () => void;
     loading: boolean;
     error: string | null;
     setLoading: (loading: boolean) => void;
@@ -36,6 +39,7 @@ export const useContacts = () => {
 };
 
 export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) => {
+    const { showToast } = useToast();
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [filteredContacts, setFilteredContacts] = useState<Contact[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -43,20 +47,31 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
     const [ascending, setAscending] = useState<boolean>(true);
 
+    const createContact = async (contact: Contact): Promise<boolean> => {
+        try {
+            setLoading(true);
+            const contactRef = ref(db, `contacts/${contact.id}`);
+            await set(contactRef, contact);
+            setLoading(false);
+            return true
+        } catch {
+            setError('Errore nel salvare il nuovo contatto');
+            setLoading(false);
+            return false
+        }
+    };
+
     const updateContact = async (contact: Contact) => {
         try {
             setLoading(true);
             const contactRef = ref(db, `contacts/${contact.id}`);
             await set(contactRef, contact);
-            setContacts((prevContacts) =>
-                prevContacts.map((prevContact) =>
-                    prevContact.id === contact.id ? contact : prevContact
-                )
-            );
             setLoading(false);
+            return true
         } catch {
             setError('Errore nel salvare i contatti');
             setLoading(false);
+            return false
         }
     };
 
@@ -65,33 +80,38 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
             setLoading(true);
             const contactRef = ref(db, `contacts/${id}`);
             await set(contactRef, null);
-            setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
             setLoading(false);
+            return true
         } catch {
             setError('Errore nel rimuovere il contatto');
             setLoading(false);
+            return false
         }
     };
 
-    const toggleFavorite = async (id: string) => {
-        try {
-            setLoading(true);
-            setContacts((prevContacts) =>
-                prevContacts.map((contact) =>
-                    contact.id === id ? { ...contact, favorite: !contact.favorite } : contact
-                )
-            );
+    const fetchContacts = async () => {
+        setLoading(true);
+        const contactsRef = ref(db, 'contacts');
+        onValue(
+            contactsRef,
+            (snapshot) => {
+                setLoading(false);
+                const data = snapshot.val();
 
-            const updatedContact = contacts.find(contact => contact.id === id);
-            if (updatedContact) {
-                const contactRef = ref(db, `contacts/${updatedContact.id}`);
-                await set(contactRef, updatedContact);
+                if (data) {
+                    const formattedContacts = Object.values(data) as Contact[];
+                    setContacts(formattedContacts);
+                } else {
+                    setContacts([]);
+
+                }
+            },
+            (err) => {
+                setLoading(false);
+                setError('Errore nel caricamento dei contatti: ' + err.message);
+                showToast(t('contact.loadError'), 'error');
             }
-            setLoading(false);
-        } catch {
-            setError('Errore nel modificare il preferito');
-            setLoading(false);
-        }
+        );
     };
 
     const toggleSortOrder = () => {
@@ -120,9 +140,10 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
                 filteredContacts,
                 setContacts,
                 setFilteredContacts,
+                createContact,
                 updateContact,
                 deleteContact,
-                toggleFavorite,
+                fetchContacts,
                 loading,
                 error,
                 setLoading,

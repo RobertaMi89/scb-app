@@ -42,9 +42,11 @@ i18n
             notFound:"Contact not found"
           },
           addContact:{
-            create:"Create a new contact",
+            create:"Add contact",
             iconAlt: "Icon to add a contact",
-            save:"Save"
+            save:"Save",
+            success: "Contact added successfully!",
+            error: "An error occurred while adding the contact.",
           },
           modal:{
             close:"Close",
@@ -57,7 +59,16 @@ i18n
           },
           contactDetailPage:{
             edit:"Edit",
-            delete:"Delete"
+            editSuccess: "Contact successfully modified!",
+            editError: "An error occurred while editing the contact.",
+            delete:"Delete",
+            deleteSuccess: "Contact successfully deleted!",
+            deleteError: "An error occurred while deleting the contact.",
+            closeModal: "Close Modal",
+            confirmDeleteTitle: "Confirm deletion",
+            confirmDeleteMessage: "Are you sure you want to delete this contact?",
+            confirmYes: "Yes",
+            confirmNo: "No"
            },
            header:{
             navigation: "Site navigation"
@@ -80,12 +91,16 @@ i18n
           change:{
             language: "Cambia lingua"
           },
-        
+          error: {
+            defaultMessage: "An error occurred. Please try again later.",
+            retryButton: "Retry",
+            retryAriaLabel: "Retry the operation"
+          }
         }
       },
       it: {
         translation: {
-          loading:"Caricamento",
+          loading:"Caricamento in corso",
           backToHome: "Torna alla home",
           backToHomeAlt: "Torna alla home page",
           favorites:{
@@ -113,9 +128,11 @@ i18n
             notFound:"Contatto non trovato"
           },
           addContact:{
-            create:"Crea un nuovo contatto",
+            create:"Aggiungi contatto",
             iconAlt: "Icona per aggiungere un contatto",
-            save:"Salva"
+            save:"Salva",
+            success: "Contatto aggiunto con successo!",
+            error: "Si è verificato un errore durante l'aggiunta del contatto.",
           },
           modal:{
             close: "Chiudi",
@@ -128,7 +145,16 @@ i18n
           },
           contactDetailPage:{
             edit:"Modifica",
-            delete:"Elimina"
+            editSuccess: "Contatto modificato con successo!",
+            editError: "Si è verificato un errore durante la modifica del contatto.",
+            delete:"Elimina",
+            deleteSuccess: "Contatto eliminato con successo!",
+            deleteError: "Si è verificato un errore durante l'eliminazione del contatto.",
+            closeModal: "Chiudi modale",
+            confirmDeleteTitle: "Conferma eliminazione",
+            confirmDeleteMessage: "Sei sicuro di voler eliminare questo contatto?",
+            confirmYes: "Sì",
+            confirmNo: "No"
           },
           header:{
             navigation: "Navigazione del sito"
@@ -151,6 +177,11 @@ i18n
           change:{
             language: "Cambia lingua"
           },
+          error: {
+            defaultMessage: "Si è verificato un errore. Riprova più tardi.",
+            retryButton: "Riprova",
+            retryAriaLabel: "Riprova l'operazione"
+          }
         }
       }
     }

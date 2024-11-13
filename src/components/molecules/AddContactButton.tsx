@@ -4,14 +4,13 @@ import Button from "../atoms/Button";
 import AddBtn from "../../assets/addUsers.svg";
 import Modal from "./Modal";
 
-function AddContact() {
+function AddContactButton() {
     const { t } = useTranslation();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleAddContact = () => {
+    const handleAddContact = async () => {
         setIsModalOpen(true);
     };
-
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
@@ -41,11 +40,10 @@ function AddContact() {
                         id="modal-title">
                         {t("addContact.create")}
                     </h2>
-
                 </Modal>
             )}
         </>
     );
 }
 
-export default AddContact;
+export default AddContactButton;

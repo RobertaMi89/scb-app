@@ -1,13 +1,17 @@
+import React from "react";
+
 interface ButtonProps {
     onClick: () => void;
     children: React.ReactNode;
     className?: string;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
+    ref?: React.Ref<HTMLButtonElement>;
 }
 
-const Button = ({ onClick, children, className, type = "button", disabled }: ButtonProps) => (
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ onClick, children, className, type = "button", disabled }, ref) =>
     <button
+        ref={ref}
         onClick={onClick}
         className={className}
         type={type}

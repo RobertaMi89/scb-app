@@ -7,6 +7,9 @@ import SearchInput from "../atoms/SearchInput";
 import { Contact } from "../../types/Contact";
 import sortAsc from "../../assets/sort-az.png";
 import sortDisc from "../../assets/sort-za.png";
+import Loading from "../atoms/Loading";
+import { useToast } from "../../context/ToastContext";
+import ErrorHandler from "../atoms/ErrorHandler";
 
 interface SearchBarProps {
     onSearch: (filteredContacts: Contact[]) => void;
@@ -19,7 +22,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     const [query, setQuery] = useState("");
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
     const [ascending, setAscending] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const orderButtonRef = useRef<HTMLButtonElement | null>(null);
+    const { showToast } = useToast()
 
     useEffect(() => {
         sortContacts(sortBy, ascending);
@@ -52,14 +59,25 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     };
 
     const sortContacts = (criteria: "name" | "surname" | "email", isAscending: boolean) => {
-        const sortedContacts = [...contacts].sort((a, b) => {
-            const fieldA = a[criteria].toLowerCase();
-            const fieldB = b[criteria].toLowerCase();
-            if (fieldA < fieldB) return isAscending ? -1 : 1;
-            if (fieldA > fieldB) return isAscending ? 1 : -1;
-            return 0;
-        });
-        onSearch(sortedContacts);
+        try {
+            setIsLoading(true);
+            setError(null);
+            const sortedContacts = [...contacts].sort((a, b) => {
+                const fieldA = a[criteria].toLowerCase();
+                const fieldB = b[criteria].toLowerCase();
+                if (fieldA < fieldB) return isAscending ? -1 : 1;
+                if (fieldA > fieldB) return isAscending ? 1 : -1;
+                return 0;
+            });
+            onSearch(sortedContacts);
+
+        } catch (err) {
+            console.error(err)
+            setError(t("searchBar.sortError"));
+            showToast(t("searchBar.sortError"), "error");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const toggleDropdown = () => {
@@ -68,7 +86,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) && orderButtonRef.current && !orderButtonRef.current.contains(event.target as Node)) {
                 setIsDropdownOpen(false);
             }
         };
@@ -79,9 +97,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     }, []);
 
     return (
-        <form className="mx-auto" onSubmit={(e) => e.preventDefault()}>
+        <form className="max-w-sm mx-auto" onSubmit={(e) => e.preventDefault()}>
             <div className="flex relative">
-                <Button
+                <Button ref={orderButtonRef}
                     onClick={toggleDropdown}
                     className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
                     aria-label={t('searchBar.sort')}
@@ -118,6 +136,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
                     />
                 </Button>
             </div>
+            {isLoading && <Loading />}
+            {error && <ErrorHandler message={error} />}
         </form>
     );
 };

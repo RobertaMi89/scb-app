@@ -7,6 +7,8 @@ import ContactList from "./components/organisms/ContactList";
 import Footer from "./components/template/Footer";
 import ContactDetailPage from './components/pages/ContactDetailPage';
 import Favorites from './components/pages/FavoritesPage';
+import { ToastProvider } from './context/ToastContext';
+import Toast from './components/atoms/Toast';
 
 function App() {
   const { t } = useTranslation();
@@ -15,18 +17,21 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <LanguageProvider>
-        <ContactsProvider>
-          {!isDetailPage && <Header aria-label={t("header.navigation")} />}
-          <Routes>
-            <Route path="/contact/:id" element={<ContactDetailPage />} />
-            <Route path="/" element={<ContactList />} />
-            <Route path="/contacts" element={<ContactList />} />
-            <Route path="/favorites" element={<Favorites />} />
-          </Routes>
-          {!isDetailPage && <Footer aria-label={t("footer.navigation")} />}
-        </ContactsProvider>
-      </LanguageProvider>
+      <ToastProvider>
+        <LanguageProvider>
+          <ContactsProvider>
+            {!isDetailPage && <Header aria-label={t("header.navigation")} />}
+            <Toast />
+            <Routes>
+              <Route path="/contact/:id" element={<ContactDetailPage />} />
+              <Route path="/" element={<ContactList />} />
+              <Route path="/contacts" element={<ContactList />} />
+              <Route path="/favorites" element={<Favorites />} />
+            </Routes>
+            {!isDetailPage && <Footer aria-label={t("footer.navigation")} />}
+          </ContactsProvider>
+        </LanguageProvider>
+      </ToastProvider>
     </div>
   );
 }

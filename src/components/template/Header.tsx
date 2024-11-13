@@ -3,7 +3,7 @@ import { useContacts } from "../../context/ContactsContext";
 import { Contact } from "../../types/Contact";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../atoms/LanguageSwitcher";
-import AddContact from "../molecules/AddContact";
+import AddContactButton from "../molecules/AddContactButton";
 import SearchBar from "../molecules/SearchBar";
 
 function Header() {
@@ -27,7 +27,7 @@ function Header() {
                 <LanguageSwitcher aria-label={t("change.language")} />
             </div>
             <div className="flex items-center justify-center m-2">
-                {!shouldHideAddContact && <AddContact aria-label={t("addContact.create")} />}
+                {!shouldHideAddContact && <AddContactButton aria-label={t("addContact.create")} />}
             </div>
         </>
     )

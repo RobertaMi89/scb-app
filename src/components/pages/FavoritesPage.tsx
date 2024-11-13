@@ -3,10 +3,23 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Contact } from "../../types/Contact";
 import ContactAvatar from "../atoms/ContactAvatar";
+import Loading from '../atoms/Loading';
+import ErrorHandler from '../atoms/ErrorHandler';
+import { useToast } from '../../context/ToastContext';
 
 const Favorites: React.FC = () => {
-    const { contacts } = useContacts();
+    const { contacts, loading, error } = useContacts();
     const { t } = useTranslation();
+    const { showToast } = useToast();
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        showToast(t('error.fetchingData'), 'error');
+        return <ErrorHandler message={t('error.generic')} />;
+    }
 
     const favorites = contacts.filter((contact) => contact.favorite);
 
@@ -26,8 +39,9 @@ const Favorites: React.FC = () => {
                         <li key={contact.id} className="flex items-center space-x-4 mb-4">
                             <Link
                                 to={`/contact/${contact.id}`}
-                                aria-label={t("favorites.viewContact",
-                                    { name: `${contact.name} ${contact.surname}` })}>
+                                aria-label={t("favorites.viewContact", {
+                                    name: `${contact.name} ${contact.surname}`
+                                })}>
                                 <div className="flex items-center space-x-4 rtl:space-x-reverse">
                                     <div className="flex-shrink-0">
                                         <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className="w-12 h-12" />
