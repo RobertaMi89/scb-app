@@ -118,11 +118,6 @@ const Modal = ({ onClose, isOpen, contact, message }: ModalProps) => {
         setDescription(event.target.value);
     };
 
-
-    function handleOpenEditModal(_event: React.MouseEvent<HTMLButtonElement>): void {
-        throw new Error("Function not implemented.");
-    }
-
     return isOpen ? (
         <div
             role="dialog"
@@ -161,24 +156,34 @@ const Modal = ({ onClose, isOpen, contact, message }: ModalProps) => {
                 </div>
 
                 <div className="flex flex-col items-center justify-center my-5">
-                    <button
-                        type="button"
-                        onClick={handleButtonClick}
-                        className="flex items-center space-x-2 rounded-full p-5"
-                        aria-label={t("addContact.addImage")}
-                    >
-                        <img
-                            src={image || NoAvatar}
-                            alt={t("addContact.addImage")}
-                            className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 shadow-lg" />
-                    </button>
-                    <button
-                        onClick={handleOpenEditModal}
-                        className="absolute left-64 transform -translate-x-1/2 top-24 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
-                        aria-label={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
-                    >
-                        <img src={isAddMode ? PlusIcon : Edit} alt={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")} className="w-6 h-6" />
-                    </button>
+                    <div className="relative flex items-center justify-center">
+                        {/* Avatar*/}
+                        <button
+                            type="button"
+                            className="flex items-center space-x-2 rounded-full p-5"
+                            aria-label={t("addContact.addImage")}
+                        >
+                            <img
+                                src={image || NoAvatar}
+                                alt={t("addContact.addImage")}
+                                className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 shadow-lg"
+                            />
+                        </button>
+
+                        <button
+                            onClick={handleButtonClick}
+                            className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-16px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
+                            aria-label={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
+                        >
+                            <img
+                                src={isAddMode ? PlusIcon : Edit}
+                                alt={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
+                                className="w-6 h-6"
+                            />
+                        </button>
+                    </div>
+
+
                     <input
                         type="file"
                         ref={fileInputRef}

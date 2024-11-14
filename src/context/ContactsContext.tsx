@@ -95,7 +95,6 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
         onValue(
             contactsRef,
             (snapshot) => {
-                setLoading(false);
                 const data = snapshot.val();
 
                 if (data) {
@@ -105,6 +104,7 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
                     setContacts([]);
 
                 }
+                setLoading(false);
             },
             (err) => {
                 setLoading(false);

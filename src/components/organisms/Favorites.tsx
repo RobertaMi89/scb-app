@@ -7,16 +7,20 @@ import Loading from '../atoms/Loading';
 import ErrorHandler from '../atoms/ErrorHandler';
 import { useToast } from '../../context/ToastContext';
 
-const Favorites: React.FC = () => {
+interface FavoritestProps {
+    show: boolean
+}
+
+const Favorites: React.FC<FavoritestProps> = ({ show }) => {
     const { contacts, loading, error } = useContacts();
     const { t } = useTranslation();
     const { showToast } = useToast();
 
-    if (loading) {
+    if (loading && show) {
         return <Loading />;
     }
 
-    if (error) {
+    if (error && show) {
         showToast(t('error.fetchingData'), 'error');
         return <ErrorHandler message={t('error.generic')} />;
     }
@@ -30,7 +34,7 @@ const Favorites: React.FC = () => {
     });
 
     return (
-        <div className="container mx-auto p-4">
+        <div className={`container mx-auto p-4 ${show ? "" : "hidden"}`}>
             {sortedFavorites.length === 0 ? (
                 <p>{t("favorites.noFavorites")}</p>
             ) : (

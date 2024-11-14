@@ -11,6 +11,7 @@ import arrowBackToHome from "../../assets/arrow.svg";
 import Loading from "../atoms/Loading";
 import ErrorHandler from "../atoms/ErrorHandler";
 import { useContacts } from "../../context/ContactsContext";
+import { useView } from "../../context/ViewContext";
 
 const ContactDetailPage = () => {
     const { contacts, deleteContact } = useContacts();
@@ -21,7 +22,7 @@ const ContactDetailPage = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
+    const { isMobile } = useView();
     const { showToast } = useToast();
 
     useEffect(() => {
@@ -74,13 +75,13 @@ const ContactDetailPage = () => {
 
     return (
         <>
-            <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg space-y-6">
+            <div className="max-w-4xl mx-auto p-2 bg-white rounded-lg space-y-6">
                 <div className="flex items-center justify-start p-2">
                     <Link
                         to="/"
                         className="text-gray-600 hover:text-gray-800"
                         aria-label={t("backToHome")}>
-                        <img src={arrowBackToHome} alt={t("backToHomeAlt")} className="w-6 h-6" />
+                        <img src={arrowBackToHome} alt={t("backToHomeAlt")} className={`w-10 h-10 ${isMobile ? '' : 'hidden'}`} />
                     </Link>
                 </div>
                 <div className="relative flex justify-center">

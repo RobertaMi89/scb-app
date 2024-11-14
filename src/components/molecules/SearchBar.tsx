@@ -10,6 +10,7 @@ import sortDisc from "../../assets/sort-za.png";
 import Loading from "../atoms/Loading";
 import { useToast } from "../../context/ToastContext";
 import ErrorHandler from "../atoms/ErrorHandler";
+import { useView, Views } from "../../context/ViewContext";
 
 interface SearchBarProps {
     onSearch: (filteredContacts: Contact[]) => void;
@@ -18,6 +19,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     const { t } = useTranslation();
+    const { setView } = useView();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
@@ -40,6 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
             sortContacts(sortBy, ascending);
             onSearch(contacts);
         } else {
+            setView(Views.CONTACTS)
             const filteredContacts = contacts.filter(contact =>
                 contact.name.toLowerCase().includes(value.toLowerCase())
             );
