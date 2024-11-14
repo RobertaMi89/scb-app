@@ -13,7 +13,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ onClick, chil
     <button
         ref={ref}
         onClick={onClick}
-        className={className}
+        className={`${disabled ? className?.concat(' disabled:opacity-75') : className}`}
         type={type}
         disabled={disabled}
         aria-disabled={disabled}>

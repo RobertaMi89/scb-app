@@ -1,17 +1,13 @@
-import { useLocation } from "react-router-dom";
 import { useContacts } from "../../context/ContactsContext";
 import { Contact } from "../../types/Contact";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../atoms/LanguageSwitcher";
-import AddContactButton from "../molecules/AddContactButton";
 import SearchBar from "../molecules/SearchBar";
 
-function Header() {
-    const { contacts, setFilteredContacts } = useContacts();
-    const location = useLocation();
-    const { t } = useTranslation();
 
-    const shouldHideAddContact = location.pathname === "/favorites";
+function Header({ className }: { className?: string }) {
+    const { contacts, setFilteredContacts } = useContacts();
+    const { t } = useTranslation();
 
     const handleSearch = (filtered: Contact[]) => {
         setFilteredContacts(filtered);
@@ -19,15 +15,15 @@ function Header() {
 
     return (
         <>
-            <div className="flex items-center mt-3" role="banner">
-                <SearchBar
-                    onSearch={handleSearch}
-                    contacts={contacts}
-                    aria-label={t("searchBar.search")} />
-                <LanguageSwitcher aria-label={t("change.language")} />
-            </div>
-            <div className="flex items-center justify-center m-2">
-                {!shouldHideAddContact && <AddContactButton aria-label={t("addContact.create")} />}
+            <div className={className}>
+                <div className="flex items-center justify-between p-3 bg-gray-50 border border-b-gray-200" role="banner">
+                    <div></div>
+                    <SearchBar
+                        onSearch={handleSearch}
+                        contacts={contacts}
+                        aria-label={t("searchBar.search")} />
+                    <LanguageSwitcher aria-label={t("change.language")} />
+                </div>
             </div>
         </>
     )

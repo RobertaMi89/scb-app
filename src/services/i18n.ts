@@ -18,6 +18,7 @@ i18n
           backToHome: "Go to homepage",
           backToHomeAlt: "Go to homepage",
           favorites:{
+            noFavorites: 'No favorite contacts.',
             viewContact: "View contact: {{name}}"
           },
           searchBar: {
@@ -55,7 +56,12 @@ i18n
             tel: "Telephone",
             email: "Email",
             notes: "Notes",
-            save: "Save"
+            save: "Save",
+          },
+          validation:{
+            nameRequired: "Name is required",
+            emailOrPhoneRequired:"Email or Phone required",
+            invalidEmail: "Invalid email"
           },
           contactDetailPage:{
             edit:"Edit",
@@ -68,7 +74,8 @@ i18n
             confirmDeleteTitle: "Confirm deletion",
             confirmDeleteMessage: "Are you sure you want to delete this contact?",
             confirmYes: "Yes",
-            confirmNo: "No"
+            confirmNo: "No",
+            copy: "Copied"
            },
            header:{
             navigation: "Site navigation"
@@ -104,6 +111,7 @@ i18n
           backToHome: "Torna alla home",
           backToHomeAlt: "Torna alla home page",
           favorites:{
+            noFavorites: 'Nessun contatto preferito.',
             viewContact: "Visualizza contatto: {{name}}"
           },
           searchBar: {
@@ -143,6 +151,11 @@ i18n
             notes: "Note",
             save: "Salva"
           },
+          validation:{
+            nameRequired: "Nome obbligatorio",
+            emailOrPhoneRequired:"Email o Telefono obbligatori",
+            invalidEmail: "Email non valida"
+          },
           contactDetailPage:{
             edit:"Modifica",
             editSuccess: "Contatto modificato con successo!",
@@ -154,7 +167,8 @@ i18n
             confirmDeleteTitle: "Conferma eliminazione",
             confirmDeleteMessage: "Sei sicuro di voler eliminare questo contatto?",
             confirmYes: "Sì",
-            confirmNo: "No"
+            confirmNo: "No",
+            copy: "Copiato"
           },
           header:{
             navigation: "Navigazione del sito"

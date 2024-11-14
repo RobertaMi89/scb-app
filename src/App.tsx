@@ -22,20 +22,23 @@ function App() {
 
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen flex flex-col ">
       <ToastProvider>
         <LanguageProvider>
           <ContactsProvider>
             <Toast />
-            {((!isDetailPage && isMobile) || !isMobile) && <Header aria-label={t("header.navigation")} />}
-            <div className={isMobile ? '' : 'flex flex-row'}>
-              <View />
-              <Routes>
-                <Route path="/" element={<Outlet />} />
-                <Route path="/contact/:id" element={<ContactDetailPage />} />
-              </Routes>
+            <div className="flex flex-col flex-1 overflow-hidden">
+              {((!isDetailPage && isMobile) || !isMobile) && <Header aria-label={t("header.navigation")} className="basis-[16.6666%] flex-shrink-0" />}
+
+              <div className={`${isMobile ? '' : `flex flex-row`}`}>
+                <View className={`flex-grow overflow-auto ${isMobile ? '' : 'max-w-fit'} ${((!isDetailPage && isMobile) || !isMobile) ? '' : 'hidden'}`} />
+                <Routes>
+                  <Route path="/" element={<Outlet />} />
+                  <Route path="/contact/:id" element={<ContactDetailPage />} />
+                </Routes>
+              </div>
+              {((!isDetailPage && isMobile) || !isMobile) && <Footer aria-label={t("footer.navigation")} className="basis-[16.6666%]  flex-shrink-0" />}
             </div>
-            {((!isDetailPage && isMobile) || !isMobile) && <Footer aria-label={t("footer.navigation")} />}
           </ContactsProvider>
         </LanguageProvider>
       </ToastProvider>
