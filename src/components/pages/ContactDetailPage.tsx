@@ -81,7 +81,7 @@ const ContactDetailPage = () => {
 
     return (
         <>
-            <div className={`mx-auto ${isMobile ? '' : 'max-w-[75%] w-96'} rounded-lg  overflow-y-auto`}>
+            <div className={`mx-auto ${isMobile ? '' : 'max-w-[75%] w-96'} overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
                 <div className="flex items-center justify-start">
                     <Link
                         to="/"
