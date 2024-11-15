@@ -16,7 +16,7 @@ const View: React.FC<ViewProps> = ({ className }) => {
                     <Favorites show={view === Views.FAVORITES} />
                 </div>
 
-                <div className="hidden md:flex flex-col max-w-md max-h-[calc(100vh-9.4rem)] h-[calc(100vh-9.4rem)]  dark:bg-gray-700 bg-gray-50 overflow-auto border border-e-gray-200 scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                <div className="hidden md:flex md:min-w-[calc(100vw-60rem)] flex-col max-w-md max-h-[calc(100vh-9.4rem)] h-[calc(100vh-9.4rem)]  dark:bg-gray-700 bg-gray-50 overflow-auto border border-e-gray-200 scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
                     <ContactList show={view === Views.CONTACTS} />
                     <Favorites show={view === Views.FAVORITES} />
                 </div>

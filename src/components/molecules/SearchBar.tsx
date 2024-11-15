@@ -8,6 +8,7 @@ import { Contact } from "../../types/Contact";
 import Loading from "../atoms/Loading";
 import { useToast } from "../../context/ToastContext";
 import { useView, Views } from "../../context/ViewContext";
+import { useContacts } from "../../context/ContactsContext";
 
 interface SearchBarProps {
     onSearch: (filteredContacts: Contact[]) => void;
@@ -17,8 +18,8 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     const { t } = useTranslation();
     const { setView } = useView();
+    const { contactSearchQueryText, setContactSearchQueryText } = useContacts();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [query, setQuery] = useState("");
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
     const [ascending, setAscending] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setQuery(value);
+        setContactSearchQueryText(value);
 
         if (value === "") {
             sortContacts(sortBy, ascending);
@@ -122,7 +123,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
                 <SearchInput
                     type="text"
                     placeholder={t('searchBar.search')}
-                    value={query}
+                    value={contactSearchQueryText}
                     onChange={handleSearch}
                     aria-label={t('searchBar.search')}
                 />

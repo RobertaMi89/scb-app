@@ -28,6 +28,8 @@ interface ContactsContextType {
     toggleSortOrder: () => void;
     detailContactId: string | null;
     setDetailContactId: (detailContactId: string | null) => void;
+    contactSearchQueryText: string;
+    setContactSearchQueryText: (contactInfo: string) => void;
 }
 
 const ContactsContext = createContext<ContactsContextType | undefined>(undefined);
@@ -49,6 +51,7 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
     const [ascending, setAscending] = useState<boolean>(true);
     const [detailContactId, setDetailContactId] = useState<string | null>(null);
+    const [contactSearchQueryText, setContactSearchQueryText] = useState<string>("");
 
     const createContact = async (contact: Contact): Promise<boolean> => {
         try {
@@ -156,7 +159,9 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
                 ascending,
                 toggleSortOrder,
                 detailContactId,
-                setDetailContactId
+                setDetailContactId,
+                contactSearchQueryText,
+                setContactSearchQueryText
             }}
         >
             {children}

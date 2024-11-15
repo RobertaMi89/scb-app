@@ -8,7 +8,7 @@ const Loading: React.FC = () => {
         <div
             role="status"
             aria-live="polite"
-            className="flex items-center justify-center my-4"
+            className="flex w-full h-full items-center justify-center my-4"
         >
             <div
                 className="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"
