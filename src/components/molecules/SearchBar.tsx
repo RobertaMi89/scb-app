@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
     const [ascending, setAscending] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [dropdownLabel, setDropdownLabel] = useState<string>(t("searchBar.sort"));
+    const [dropdownLabel, setDropdownLabel] = useState<string>("searchBar.sort");
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const orderButtonRef = useRef<HTMLButtonElement | null>(null);
     const { showToast } = useToast()
@@ -50,6 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     const handleSortChange = (criteria: "name" | "surname" | "email") => {
         setSortBy(criteria);
         sortContacts(criteria, ascending);
+        console.log(`searchBar.sortBy${criteria.charAt(0).toUpperCase() + criteria.slice(1)}`)
         setDropdownLabel(t(`searchBar.sortBy${criteria.charAt(0).toUpperCase() + criteria.slice(1)}`));
         setIsDropdownOpen(false);
     };
@@ -106,7 +107,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
                     aria-label={t('searchBar.sort')}
                     aria-haspopup="listbox"
                 >
-                    {dropdownLabel}
+                    {t(dropdownLabel)}
 
                     <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
