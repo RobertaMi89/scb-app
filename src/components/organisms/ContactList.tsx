@@ -37,14 +37,14 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
 
   return (
     <>
-      <ul className={`w-auto divide-y mx-3 divide-gray-200 dark:divide-gray-700 ${isMobile ? 'min-w-80' : 'min-w-96'} ${show ? "" : "hidden"} `} >
+      <ul className={`w-auto divide-y mx-3 divide-gray-200 dark:divide-gray-700 ${isMobile ? 'min-w-80' : ''} ${show ? "" : "hidden"} `} >
         {filteredContacts.length > 0 ? (
           filteredContacts.map((contact) => {
             const isFavorite = contact.favorite;
 
             return (
-              <li key={contact.id} className="p-3 ps-0 sm:pb-4 flex justify-between items-center">
-                <Link to={`/contact/${contact.id}`} aria-label={t('contact.viewDetails')} >
+              <li key={contact.id} className="p-3 ps-0 sm:pb-4 flex items-center">
+                <Link to={`/contact/${contact.id}`} aria-label={t('contact.viewDetails')} style={{ width: "90%" }}>
                   <div className="flex items-center space-x-4 rtl:space-x-reverse">
                     <div className="flex-shrink-0">
                       <ContactAvatar name={contact.name} image={contact.image} />
@@ -53,11 +53,11 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                         {contact.name} {contact.surname}
                       </p>
-                      <p>{contact.email.length > 30 ? contact.email.slice(0, 29).concat("...") : contact.email}</p>
+                      <p className="text-sm text-gray-900 truncate dark:text-white">{contact.email.length > 30 ? contact.email.slice(0, 29).concat("...") : contact.email}</p>
                     </div>
                   </div>
                 </Link>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center w-[10%] space-x-2">
                   <button
                     id={'star-'.concat(contact.id)}
                     onClick={() => handleToggleFavorite(contact.id)}

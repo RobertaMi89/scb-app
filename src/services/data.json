@@ -5,70 +5,70 @@
             "name": "Luca",
             "surname": "Bianchi",
             "phone": "+391234567890",
-            "email": "luca.bianchi@example.com"
+            "email": "luca.bianchi@gmail.com"
         },
         "2": {
             "id": 2,
             "name": "Anna",
             "surname": "Verdi",
             "phone": "+391234567891",
-            "email": "anna.verdi@example.com"
+            "email": "anna.verdi@gmail.com"
         },
         "3": {
             "id": 3,
             "name": "Marco",
             "surname": "Rossi",
             "phone": "+391234567892",
-            "email": "marco.rossi@example.com"
+            "email": "marco.rossi@gmail.com"
         },
         "4": {
             "id": 4,
             "name": "Elena",
             "surname": "Neri",
             "phone": "+391234567893",
-            "email": "elena.neri@example.com"
+            "email": "elena.neri@gmail.com"
         },
         "5": {
             "id": 5,
             "name": "Giovanni",
             "surname": "Conti",
             "phone": "+391234567894",
-            "email": "giovanni.conti@example.com"
+            "email": "giovanni.conti@gmail.com"
         },
         "6": {
             "id": 6,
             "name": "Marta",
             "surname": "Gialli",
             "phone": "+391234567895",
-            "email": "marta.gialli@example.com"
+            "email": "marta.gialli@gmail.com"
         },
         "7": {
             "id": 7,
             "name": "Paolo",
             "surname": "Moretti",
             "phone": "+391234567896",
-            "email": "paolo.moretti@example.com"
+            "email": "paolo.moretti@gmail.com"
         },
         "8": {
             "id": 8,
             "name": "Chiara",
             "surname": "Ricci",
             "phone": "+391234567897",
-            "email": "chiara.ricci@example.com"
+            "email": "chiara.ricci@gmail.com"
         },
         "9": {
             "id": 9,
             "name": "Francesco",
             "surname": "Esposito",
             "phone": "+391234567898",
-            "email": "francesco.esposito@example.com"
+            "email": "francesco.esposito@gmail.com"
         },
         "10": {
             "id": 10,
             "name": "Silvia",
             "surname": "Ferrari",
             "phone": "+391234567899",
-            "email": "silvia.ferrari@example.com"
+            "email": "silvia.ferrari@gmail.com"
         }
     }
 }
