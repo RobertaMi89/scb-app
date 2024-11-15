@@ -56,7 +56,7 @@ const LanguageSwitcher = () => {
                                 ...provided,
                                 right: 0,
                                 left: 'auto',
-                                transform: 'translateX(-5%)',
+                                transform: 'translateX(18%)',
                                 width: 'auto',
                                 margin: 0
                             }),
