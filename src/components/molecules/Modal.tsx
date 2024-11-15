@@ -89,7 +89,10 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
             return;
         }
 
-        if (contact) return updateContactFn(contact);
+        if (contact) {
+            showToast(t("updateContact.success"), "success");
+            return updateContactFn(contact);
+        }
 
         const contactToCreate: Contact = {
             id: crypto.randomUUID(),
@@ -148,7 +151,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
         >
             <div
                 aria-describedby="modal-description"
-                className="modal-content relative bg-white shadow dark:bg-gray-700 w-full max-w-xl md:rounded-lg lg:rounded-lg p-4"
+                className="modal-content relative h-full md:h-auto bg-white shadow dark:bg-gray-700 w-full max-w-xl md:rounded-lg lg:rounded-lg md:p-4"
             >
                 <div className="flex items-center justify-between border-b p-4">
                     <div className="flex items-center w-full justify-end">
@@ -345,7 +348,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                     </div>
                 )}
 
-                <div className="flex justify-center items-center space-x-4">
+                <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20  md:border-none md:bg-white mt-5`}>
                     <Button
                         onClick={handleSave}
                         className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 transition duration-200"

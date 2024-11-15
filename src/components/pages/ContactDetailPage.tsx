@@ -79,13 +79,13 @@ const ContactDetailPage = () => {
 
     return (
         <>
-            <div className={`mx-auto ${'md:max-w-[75%] md:w-96'} overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
+            <div className={`mx-auto md:max-w-[75%] md:w-96 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
                 <div className="flex items-center justify-start">
                     <Link
                         to="/"
                         className="absolute top-4 left-4 z-10 text-gray-600 hover:text-gray-800 md:hidden lg:hidden"
                         aria-label={t("backToHome")}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-8 h-8 hidden md:block" aria-label={t("backToHomeAlt")}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-8 h-8" aria-label={t("backToHomeAlt")}>
                             <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
                         </svg>
 
@@ -99,7 +99,7 @@ const ContactDetailPage = () => {
 
                 </div>
                 <div className={`space-y-4 flex justify-center ${'sm:h-[calc(100vh-18rem)] sm:w-full sm:p-2'} ${'md:max-w-96 md:max-h-80'}`}>
-                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-10 p-10 shadow-md shadow-gray-300 w-[90%] md:w-[100%]`}>
+                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-5 p-10 shadow-md shadow-gray-300 w-[90%] md:w-[100%]`}>
 
                         <li className="flex justify-between">
                             <div className="text-lg font-semibold  max-w-[85%]">
@@ -139,8 +139,8 @@ const ContactDetailPage = () => {
                                 </svg>
                             </button>
                         </li>
-                        <li>
-                            <div className={`hidden flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 mt-5 md:block`}>
+                        <li className="hidden md:block">
+                            <div className={`md:flex md:flex-row md:flex-wrap justify-center items-center space-x-4  mt-5`}>
                                 <Button
                                     onClick={handleOpenEditModal}
                                     className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-200 transition duration-200"
@@ -168,7 +168,7 @@ const ContactDetailPage = () => {
                     </ul>
                 </div>
 
-                <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 mt-5 md:hidden`}>
+                <div className={`flex justify-center items-center space-x-4 mt-7 bg-gray-50 border border-t-gray-200 h-20 md:hidden`}>
                     <Button
                         onClick={handleOpenEditModal}
                         className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 transition duration-200"

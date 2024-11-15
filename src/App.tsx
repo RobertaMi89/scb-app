@@ -30,9 +30,9 @@ function App() {
           <ContactsProvider>
             <Toast />
             <div className="flex flex-col flex-1 basis-auto overflow-hidden">
-              {((!isDetailPage)) && (
+              {((!isDetailPage && isMobile) || !isMobile) &&
                 <Header aria-label={t("header.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
-              )}
+              }
 
               <div className="flex flex-1 flex-col md:flex-row">
                 <View
@@ -52,7 +52,7 @@ function App() {
                   </Routes>
                 </div>
               </div>
-              {((!isDetailPage)) && (
+              {((!isDetailPage && isMobile) || !isMobile) && (
                 <Footer aria-label={t("footer.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
               )}
             </div>

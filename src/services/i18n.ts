@@ -49,6 +49,9 @@ i18n
             success: "Contact added successfully!",
             error: "An error occurred while adding the contact.",
           },
+          updateContact:{
+            success: "Contact updated successfully!"
+          },
           modal:{
             close:"Close",
             name: "Name",
@@ -141,6 +144,9 @@ i18n
             save:"Salva",
             success: "Contatto aggiunto con successo!",
             error: "Si è verificato un errore durante l'aggiunta del contatto.",
+          },
+          updateContact:{
+            success: "Contatto aggiornato con successo!"
           },
           modal:{
             close: "Chiudi",

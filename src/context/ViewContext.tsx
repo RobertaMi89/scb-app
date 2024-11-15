@@ -9,6 +9,7 @@ export enum Views {
 interface ViewContextType {
     view: Views | null;
     setView: (view: Views) => void
+    isMobile: boolean;
 }
 
 const ViewContext = createContext<ViewContextType | undefined>(undefined);
@@ -33,7 +34,7 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.outerWidth <= 600);
+            setIsMobile(window.outerWidth <= 768);
         };
 
         window.addEventListener('resize', handleResize);
@@ -63,7 +64,7 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
 
 
     return (
-        <ViewContext.Provider value={{ view, setView }}>
+        <ViewContext.Provider value={{ view, setView, isMobile }}>
             {children}
         </ViewContext.Provider>
     );

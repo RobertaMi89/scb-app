@@ -27,7 +27,6 @@ const LanguageSwitcher = () => {
     ];
 
     if (!languageLoaded) {
-        console.log(i18n.language)
         return <Loading />
     }
 
