@@ -100,10 +100,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
 
     return (
         <form className="max-w-sm w-96 " onSubmit={(e) => e.preventDefault()}>
-            <div className={`flex relative bg-gray-200 border rounded-full px-3 mx-2 ${isMobile ? '' : ' w-[100%]'}`}>
+            <div className={`flex relative bg-gray-200  dark:bg-gray-400 border rounded-full px-3 mx-2 ${isMobile ? '' : ' w-[100%]'}`}>
                 <Button ref={orderButtonRef}
                     onClick={toggleDropdown}
-                    className="flex-shrink-0 border-gray-300 border-e-2 z-2 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                    className="flex-shrink-0 border-gray-300 border-e-2 z-2 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-400 dark:text-white dark:border-gray-300"
                     aria-label={t('searchBar.sort')}
                     aria-haspopup="listbox"
                 >
@@ -128,7 +128,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
                 />
                 <Button
                     onClick={toggleAscending}
-                    className=" m-1 py-1 rounded-md hover:bg-gray-200 flex focus:outline-none focus:ring-3 focus:ring-gray-300"
+                    className=" m-1 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-400 flex focus:outline-none focus:ring-3 focus:ring-gray-300"
                     aria-label={ascending ? t('searchBar.ascending') : t('searchBar.descending')}
                 >
                     {ascending ? (
