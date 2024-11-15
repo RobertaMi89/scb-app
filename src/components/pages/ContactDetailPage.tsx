@@ -95,7 +95,7 @@ const ContactDetailPage = () => {
                     <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className={`w-full h-52 text-6xl ${isMobile ? 'rounded-none' : 'rounded-none rounded-b-lg'}`} />
                 </div>
                 <div className={`space-y-4  flex justify-center ${isMobile ? 'h-[calc(100vh-18rem)] w-[100%] p-2' : ' max-w-96 max-h-80'}`}>
-                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-10 p-10 shadow-md shadow-gray-300 2xl:w-[70%] ${isMobile ? 'w-[90%]' : 'w-[100%]'}`}>
+                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-10 p-10 shadow-md shadow-gray-300 ${isMobile ? 'w-[90%]' : 'w-[100%]'}`}>
                         <li className="flex justify-between">
                             <div className="text-lg font-semibold  max-w-[85%]">
                                 {t("contact.name")}: <div className="text-gray-700 font-normal">{contact.name}</div>
