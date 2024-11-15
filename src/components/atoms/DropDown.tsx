@@ -14,7 +14,7 @@ const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(({ isOpen, chil
                 role="menu"
                 aria-expanded={isOpen}
                 aria-hidden={!isOpen}
-                className="z-10 mt-12 list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute left-0">
+                className="z-10 mt-12 list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:divide-gray-700 dark:bg-gray-400 absolute left-0">
                 {children}
             </div>
         ) : null

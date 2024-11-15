@@ -42,7 +42,7 @@ const Favorites: React.FC<FavoritestProps> = ({ show }) => {
                 </li>
             ) : (
                 <ul
-                    className={`max-w-md divide-y mx-3 divide-gray-200 dark:divide-gray-700 ${show ? '' : 'hidden'
+                    className={`max-w-md divide-y mx-3 divide-gray-200 dark:divide-gray-500 ${show ? '' : 'hidden'
                         }`}
                 >
                     {favorites.map((contact: Contact) => (

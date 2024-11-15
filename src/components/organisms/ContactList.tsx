@@ -37,7 +37,7 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
 
   return (
     <>
-      <ul className={`w-auto divide-y mx-3 divide-gray-200 dark:divide-gray-700 dark:bg-gray-700 ${'sm:min-w-[80%]'} ${show ? "" : "hidden"}`} >
+      <ul className={`w-auto divide-y mx-3 divide-gray-200 dark:divide-gray-500 dark:bg-gray-700 ${'sm:min-w-[80%]'} ${show ? "" : "hidden"}`} >
         {filteredContacts.length > 0 ? (
           filteredContacts.map((contact) => {
             const isFavorite = contact.favorite;

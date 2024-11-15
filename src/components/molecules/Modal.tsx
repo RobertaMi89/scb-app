@@ -153,7 +153,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                 aria-describedby="modal-description"
                 className="modal-content relative flex flex-col h-full md:h-auto bg-white shadow dark:bg-gray-700 w-full max-w-xl md:rounded-lg lg:rounded-lg md:p-4"
             >
-                <div className="flex items-center justify-between border-b p-4">
+                <div className="flex items-center justify-between border-b p-4 dark:bg-gray-800 dark:text-white dark:md:bg-gray-700">
                     <div className="flex items-center w-full justify-end">
                         <button
                             type="button"
@@ -190,10 +190,10 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 <img
                                     src={image}
                                     alt={t("addContact.addImage")}
-                                    className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 shadow-lg"
+                                    className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 dark:border-gray-400 shadow-lg"
                                 />
                             ) : (
-                                <div className="w-40 h-40 flex justify-center items-center object-cover rounded-full border-4 border-gray-200 shadow-lg">
+                                <div className="w-40 h-40 flex justify-center items-center object-cover rounded-full border-4 border-gray-200 shadow-lg dark:border-gray-400">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -214,7 +214,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
 
                         <button
                             onClick={handleButtonClick}
-                            className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-16px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
+                            className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-16px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100  dark:bg-gray-800 focus:outline-none"
                             aria-label={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
                         >
                             {isAddMode ? (
@@ -250,7 +250,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
 
                         <button
                             onClick={handleRemoveImage}
-                            className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-128px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
+                            className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-128px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800"
                             aria-label={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
                         >
                             <svg
@@ -292,7 +292,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder={t("modal.name")}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 required
                                 aria-required="true"
                                 aria-labelledby="name"
@@ -305,7 +305,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 value={surname}
                                 onChange={(e) => setSurname(e.target.value)}
                                 placeholder={t("modal.surname")}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 aria-label={t("contact.surname")}
                             />
                             <div className="phone-input-container">
@@ -324,7 +324,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                         required: true,
                                         "aria-required": "true",
                                         className:
-                                            "before: bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 py-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white",
+                                            "before:bg-gray-50 border border-gray-300 dark:bg-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 py-2.5 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white",
                                     }}
                                 />
                             </div>
@@ -337,7 +337,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 onChange={handleEmailChange}
                                 placeholder={t("modal.email")}
                                 className={`bg-gray-50 border ${isEmailValid ? "border-gray-300" : "border-red-500"
-                                    } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white`}
+                                    } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white`}
                                 aria-labelledby="email"
                             />
                             <label htmlFor="notes" className="sr-only">
@@ -347,10 +347,10 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                     </div>
                 )}
 
-                <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20  md:border-none md:bg-white mt-5`}>
+                <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20  md:border-none md:bg-white mt-5 dark:bg-gray-800 dark:md:bg-gray-700`}>
                     <Button
                         onClick={handleSave}
-                        className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 transition duration-200"
+                        className="px-6 py-2 flex flex-col items-center text-black dark:text-white rounded-full hover:bg-gray-100 transition duration-200 dark:hover:bg-gray-500 dark:hover:text-gray-800 "
                         aria-label={t("contactDetailPage.edit")}
                     >
                         <svg

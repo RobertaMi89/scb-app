@@ -16,7 +16,7 @@ function Header({ className }: { className?: string }) {
     return (
         <>
             <div className={className}>
-                <div className="flex items-center justify-between p-3 bg-gray-50 border border-b-gray-200  dark:bg-gray-700" role="banner">
+                <div className="flex items-center justify-between p-3 bg-gray-50 border border-b-gray-200  dark:bg-gray-800" role="banner">
                     <div></div>
                     <SearchBar
                         onSearch={handleSearch}

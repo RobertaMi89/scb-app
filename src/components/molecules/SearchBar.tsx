@@ -104,7 +104,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
             <div className={`flex relative bg-gray-200 dark:bg-gray-400 border rounded-full px-3 mx-2 ${'sm:w-full'}`} >
                 <Button ref={orderButtonRef}
                     onClick={toggleDropdown}
-                    className="flex-shrink-0 border-gray-300 border-e-2 z-2 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-400 dark:text-white dark:border-gray-300"
+                    className="flex-shrink-0 dark:border-gray-700 border-gray-300 border-e-2 z-2 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-400 dark:hover:bg-gray-600 dark:focus:ring-gray-300 dark:text-gray-950 dark:border-gray-300"
                     aria-label={t('searchBar.sort')}
                     aria-haspopup="listbox"
                 >
