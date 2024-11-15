@@ -7,7 +7,6 @@ import Footer from "./components/template/Footer";
 import ContactDetailPage from './components/pages/ContactDetailPage';
 import { ToastProvider } from './context/ToastContext';
 import Toast from './components/atoms/Toast';
-import { useView } from './context/ViewContext';
 import View from './components/organisms/View';
 import { useEffect, useState } from 'react';
 import detailBg from './assets/bg.svg'
@@ -15,7 +14,6 @@ import detailBg from './assets/bg.svg'
 function App() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { isMobile } = useView();
   const [isDetailPage, setIsDetailPage] = useState<boolean>(false);
 
   useEffect(() => {
@@ -30,18 +28,14 @@ function App() {
           <ContactsProvider>
             <Toast />
             <div className="flex flex-col flex-1 basis-auto overflow-hidden">
-              {/* Header visibile su mobile e desktop */}
               {((!isDetailPage)) && (
                 <Header aria-label={t("header.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
               )}
 
               <div className="flex flex-1 flex-col md:flex-row">
-                {/* View visibile su mobile e desktop */}
                 <View
                   className={`flex-grow overflow-auto ${(!isDetailPage) ? '' : 'hidden'} md:max-w-fit`}
                 />
-
-                {/* Dettaglio della pagina del contatto */}
                 <div
                   className={`flex-1 ${isDetailPage ? 'block' : 'hidden'} md:flex justify-center`}
                   style={{
@@ -56,8 +50,6 @@ function App() {
                   </Routes>
                 </div>
               </div>
-
-              {/* Footer visibile su mobile e desktop */}
               {((!isDetailPage)) && (
                 <Footer aria-label={t("footer.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
               )}

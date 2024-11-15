@@ -5,7 +5,6 @@ import { useContacts } from '../../context/ContactsContext';
 import ContactAvatar from '../atoms/ContactAvatar';
 import Loading from '../atoms/Loading';
 import { useToast } from '../../context/ToastContext';
-import { useView } from '../../context/ViewContext';
 
 interface ContactListProps {
   show: boolean
@@ -15,7 +14,6 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
   const { t } = useTranslation();
   const { showToast } = useToast();
   const [contactsLoading, setContactsLoading] = useState<boolean>(true)
-  const { isMobile } = useView()
   useEffect(() => {
     fetchContacts()
     setContactsLoading(false)
@@ -37,7 +35,7 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
 
   return (
     <>
-      <ul className={`w-auto divide-y mx-3 divide-gray-200 dark:divide-gray-700 dark:bg-gray-700 ${isMobile ? 'min-w-80' : ''} ${show ? "" : "hidden"} `} >
+      <ul className={`w-auto divide-y mx-3 divide-gray-200 dark:divide-gray-700 dark:bg-gray-700 ${'sm:min-w-[80%]'} ${show ? "" : "hidden"}`} >
         {filteredContacts.length > 0 ? (
           filteredContacts.map((contact) => {
             const isFavorite = contact.favorite;

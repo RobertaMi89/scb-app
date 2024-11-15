@@ -9,7 +9,6 @@ import Button from "../atoms/Button";
 import ContactAvatar from "../atoms/ContactAvatar";
 import Loading from "../atoms/Loading";
 import { useContacts } from "../../context/ContactsContext";
-import { useView } from "../../context/ViewContext";
 import { useNavigate } from "react-router-dom";
 
 const ContactDetailPage = () => {
@@ -21,7 +20,6 @@ const ContactDetailPage = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    const { isMobile } = useView();
     const { showToast } = useToast();
 
     useEffect(() => {
@@ -81,21 +79,28 @@ const ContactDetailPage = () => {
 
     return (
         <>
-            <div className={`mx-auto ${isMobile ? '' : 'max-w-[75%] w-96'} overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
+            <div className={`mx-auto ${'md:max-w-[75%] md:w-96'} overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
                 <div className="flex items-center justify-start">
                     <Link
                         to="/"
                         className="absolute top-4 left-4 z-10 text-gray-600 hover:text-gray-800"
                         aria-label={t("backToHome")}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className={`w-8 h-8 ${isMobile ? '' : 'hidden'}`} aria-label={t("backToHomeAlt")}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-8 h-8 hidden md:block" aria-label={t("backToHomeAlt")}>
                             <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
                         </svg>
+
                     </Link>
 
-                    <ContactAvatar name={`${contact.name} ${contact.surname}`} image={contact.image} className={`w-full h-52 text-6xl ${isMobile ? 'rounded-none' : 'rounded-none rounded-b-lg'}`} />
+                    <ContactAvatar
+                        name={`${contact.name} ${contact.surname}`}
+                        image={contact.image}
+                        className={`w-full h-52 text-6xl rounded-none md:rounded-b-lg`}
+                    />
+
                 </div>
-                <div className={`space-y-4  flex justify-center ${isMobile ? 'h-[calc(100vh-18rem)] w-[100%] p-2' : ' max-w-96 max-h-80'}`}>
-                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-10 p-10 shadow-md shadow-gray-300 ${isMobile ? 'w-[90%]' : 'w-[100%]'}`}>
+                <div className={`space-y-4 flex justify-center ${'sm:h-[calc(100vh-18rem)] sm:w-full sm:p-2'} ${'md:max-w-96 md:max-h-80'}`}>
+                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-10 p-10 shadow-md shadow-gray-300 w-[90%] md:w-[100%]`}>
+
                         <li className="flex justify-between">
                             <div className="text-lg font-semibold  max-w-[85%]">
                                 {t("contact.name")}: <div className="text-gray-700 font-normal">{contact.name}</div>
@@ -135,7 +140,7 @@ const ContactDetailPage = () => {
                             </button>
                         </li>
                         <li>
-                            <div className={`flex justify-center items-center space-x-4 ${isMobile ? 'hidden bg-gray-50 border border-t-gray-200 h-20' : 'mt-5'}`}>
+                            <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 mt-5 md:hidden`}>
                                 <Button
                                     onClick={handleOpenEditModal}
                                     className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-200 transition duration-200"
@@ -163,7 +168,7 @@ const ContactDetailPage = () => {
                     </ul>
                 </div>
 
-                <div className={`flex justify-center items-center space-x-4 ${isMobile ? 'bg-gray-50 border border-t-gray-200 h-20' : 'mt-5 hidden'}`}>
+                <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 mt-5 md:hidden`}>
                     <Button
                         onClick={handleOpenEditModal}
                         className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 transition duration-200"
@@ -197,7 +202,6 @@ const ContactDetailPage = () => {
                 )}
             </div>
 
-            {/*modale per conferma di eliminazione contatto*/}
             {isConfirmModalOpen && (
                 <div
                     id="popup-modal"
@@ -206,7 +210,8 @@ const ContactDetailPage = () => {
                     aria-describedby="confirmDeleteDescription"
                     className="fixed top-0 left-0 z-40 flex justify-center items-center w-full h-screen bg-black bg-opacity-50"
                 >
-                    <div className={`relative p-4 w-full max-w-md bg-white shadow dark:bg-gray-700 ${isMobile ? '' : 'rounded-lg'}`}>
+                    <div className={`relative p-4 w-full max-w-md bg-white shadow dark:bg-gray-700 md:rounded-lg`}>
+
                         <button
                             type="button"
                             onClick={handleCloseConfirmModal}

@@ -9,7 +9,6 @@ export enum Views {
 interface ViewContextType {
     view: Views | null;
     setView: (view: Views) => void
-    isMobile: boolean;
 }
 
 const ViewContext = createContext<ViewContextType | undefined>(undefined);
@@ -64,7 +63,7 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
 
 
     return (
-        <ViewContext.Provider value={{ view, setView, isMobile }}>
+        <ViewContext.Provider value={{ view, setView }}>
             {children}
         </ViewContext.Provider>
     );

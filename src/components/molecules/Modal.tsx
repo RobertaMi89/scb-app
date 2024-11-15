@@ -4,7 +4,6 @@ import { useToast } from "../../context/ToastContext";
 import { Contact } from "../../types/Contact";
 import Loading from "../atoms/Loading";
 import { useContacts } from "../../context/ContactsContext";
-import { useView } from "../../context/ViewContext";
 import Button from "../atoms/Button";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -18,7 +17,6 @@ interface ModalProps {
 }
 
 const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
-    const { isMobile } = useView();
     const { showToast } = useToast();
     const { createContact, updateContact } = useContacts()
     const { t } = useTranslation();
@@ -146,11 +144,11 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
             role="dialog"
             aria-labelledby="modal-title"
             aria-hidden={!isOpen}
-            className={`modal-overlay fixed top-0 left-0  right-0 bottom-0 bg-gray-800 bg-opacity-50 z-40 flex justify-center items-center`}
+            className="modal-overlay fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 z-40 flex justify-center items-center"
         >
             <div
                 aria-describedby="modal-description"
-                className={`modal-content relative bg-white shadow dark:bg-gray-700 w-full max-w-xl  ${isMobile ? 'min-h-[100%]' : 'rounded-lg p-4'}`}
+                className="modal-content relative bg-white shadow dark:bg-gray-700 w-full max-w-xl md:rounded-lg lg:rounded-lg p-4"
             >
                 <div className="flex items-center justify-between border-b p-4">
                     <div className="flex items-center w-full justify-end">
@@ -180,25 +178,36 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
 
                 <div className="flex flex-col items-center justify-center my-5">
                     <div className="relative flex items-center justify-center">
-                        {/* Avatar*/}
+                        {/* Avatar */}
                         <button
                             type="button"
                             className="flex items-center space-x-2 rounded-full p-5"
                             aria-label={t("addContact.addImage")}
                         >
-
-                            {image ? (<img
-                                src={image}
-                                alt={t("addContact.addImage")}
-                                className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 shadow-lg"
-                            />) : (<div
-                                className="w-40 h-40 flex justify-center items-center object-cover rounded-full border-4 border-gray-200 shadow-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#9ca3af" className="h-14">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                </svg></div>
+                            {image ? (
+                                <img
+                                    src={image}
+                                    alt={t("addContact.addImage")}
+                                    className="w-40 h-40 object-cover rounded-full border-4 border-gray-200 shadow-lg"
+                                />
+                            ) : (
+                                <div className="w-40 h-40 flex justify-center items-center object-cover rounded-full border-4 border-gray-200 shadow-lg">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="#9ca3af"
+                                        className="h-14"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                                        />
+                                    </svg>
+                                </div>
                             )}
-
-
                         </button>
 
                         <button
@@ -206,14 +215,35 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                             className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-16px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
                             aria-label={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
                         >
-
-                            {isAddMode ? (<svg xmlns="http://www.w3.org/2000/svg" style={{ color: '#22c55e' }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                            ) : (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style={{ color: "#3b82f6" }} strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg>)}
-
+                            {isAddMode ? (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    style={{ color: "#22c55e" }}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="size-6"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            ) : (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    style={{ color: "#3b82f6" }}
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="size-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                    />
+                                </svg>
+                            )}
                         </button>
 
                         <button
@@ -221,14 +251,22 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                             className="absolute top-0 right-0 transform translate-x-[-16px] -translate-y-[-128px] bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 focus:outline-none"
                             aria-label={isAddMode ? t("addContact.create") : t("contactDetailPage.edit")}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#ef4444" className="h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="#ef4444"
+                                className="h-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                />
                             </svg>
-
-
                         </button>
                     </div>
-
 
                     <input
                         type="file"
@@ -242,9 +280,11 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                 {isLoading ? (
                     <Loading />
                 ) : (
-                    <div className={`p-4 md:p-5 space-y-4 ${isMobile ? 'h-[calc(100vh-23rem)] ' : ''}`}>
+                    <div className="p-4 md:p-5 space-y-4">
                         <form className="space-y-4" action="#" aria-labelledby="modal-form">
-                            <label htmlFor="name" className="sr-only">{t("modal.name")}</label>
+                            <label htmlFor="name" className="sr-only">
+                                {t("modal.name")}
+                            </label>
                             <input
                                 type="text"
                                 value={name}
@@ -255,7 +295,9 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 aria-required="true"
                                 aria-labelledby="name"
                             />
-                            <label htmlFor="surname" className="sr-only">{t("modal.surname")}</label>
+                            <label htmlFor="surname" className="sr-only">
+                                {t("modal.surname")}
+                            </label>
                             <input
                                 type="text"
                                 value={surname}
@@ -265,7 +307,11 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 aria-label={t("contact.surname")}
                             />
                             <div className="phone-input-container">
-                                <label htmlFor="telephone" id="telephone" className="block text-sm font-medium text-gray-700">
+                                <label
+                                    htmlFor="telephone"
+                                    id="telephone"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
                                     {t("contact.tel")}
                                 </label>
                                 <PhoneInput
@@ -280,37 +326,47 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                     }}
                                 />
                             </div>
-                            <label htmlFor="email" className="sr-only">{t("modal.email")}</label>
+                            <label htmlFor="email" className="sr-only">
+                                {t("modal.email")}
+                            </label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={handleEmailChange}
                                 placeholder={t("modal.email")}
-                                className={`bg-gray-50 border ${isEmailValid ? 'border-gray-300' : 'border-red-500'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white`}
+                                className={`bg-gray-50 border ${isEmailValid ? "border-gray-300" : "border-red-500"
+                                    } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white`}
                                 aria-labelledby="email"
                             />
-                            <label htmlFor="notes" className="sr-only">{t("modal.notes")}</label>
-
+                            <label htmlFor="notes" className="sr-only">
+                                {t("modal.notes")}
+                            </label>
                         </form>
                     </div>
                 )}
 
-                <div className={`flex justify-center items-center space-x-4 ${isMobile ? 'bg-gray-50 border border-t-gray-200 h-20' : ''}`}>
+                <div className="flex justify-center items-center space-x-4">
                     <Button
                         onClick={handleSave}
                         className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 transition duration-200"
                         aria-label={t("contactDetailPage.edit")}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke='#22c55e' className="size-6">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="#22c55e"
+                            className="size-6"
+                        >
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                         {t("modal.save")}
                     </Button>
-
                 </div>
             </div>
         </div>
     ) : null;
-};
+}
 
 export default Modal;
