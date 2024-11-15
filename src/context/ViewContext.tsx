@@ -38,7 +38,7 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.outerWidth <= 768);
+            setIsMobile(window.innerWidth <= 767);
         };
 
         window.addEventListener('resize', handleResize);
