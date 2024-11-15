@@ -107,7 +107,7 @@ const ContactDetailPage = () => {
                     />
 
                 </div>
-                <div className={`flex-grow space-y-4 flex justify-center sm:h-[calc(100vh-18rem)] sm:w-full md:max-w-96 md:max-h-[calc(100vh-30rem)]'}`}>
+                <div className={`flex-grow space-y-4 flex justify-center sm:h-[calc(100vh-30rem)] sm:w-full md:max-w-96 md:max-h-[calc(100vh-30rem)]'}`}>
                     <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-5 p-10 shadow-md shadow-gray-300 dark:shadow-gray-600 w-[90%] md:w-[100%]  dark:bg-gray-300`}>
 
                         <li className="flex justify-between">
@@ -180,7 +180,7 @@ const ContactDetailPage = () => {
                 <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 md:hidden dark:bg-gray-800`}>
                     <Button
                         onClick={handleOpenEditModal}
-                        className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 dark:hover:bg-gray-400 dark:hover:text-gray-800 transition duration-200 dark:text-white" 
+                        className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-100 dark:hover:bg-gray-400 dark:hover:text-gray-800 transition duration-200 dark:text-white"
                         aria-label={t("contactDetailPage.edit")}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style={{ color: "#3b82f6" }} strokeWidth={1.5} stroke="currentColor" className="size-6">
