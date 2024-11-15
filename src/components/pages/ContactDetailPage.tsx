@@ -10,8 +10,10 @@ import ContactAvatar from "../atoms/ContactAvatar";
 import Loading from "../atoms/Loading";
 import { useContacts } from "../../context/ContactsContext";
 import { useView } from "../../context/ViewContext";
+import { useNavigate } from "react-router-dom";
 
 const ContactDetailPage = () => {
+    const navigate = useNavigate()
     const { contacts, deleteContact } = useContacts();
     const { t } = useTranslation();
     const { id } = useParams<{ id: string }>();
@@ -34,6 +36,9 @@ const ContactDetailPage = () => {
         if (id) {
             deleteContact(id).then((isDeleted) => {
                 if (isDeleted) {
+                    handleCloseConfirmModal()
+                    handleCloseEditModal()
+                    navigate('/')
                     showToast(t("contactDetailPage.deleteSuccess"), "success");
                 } else {
                     setError(t("contactDetailPage.deleteError"));
