@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-
+import dotenv from "dotenv"
+dotenv.config()
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAyRt9sGBAI-4OThaiKdKcRoVY0DrBw2A8",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "scb-app-ee4cd.firebaseapp.com",
   databaseURL:
     "https://scb-app-ee4cd-default-rtdb.europe-west1.firebasedatabase.app",

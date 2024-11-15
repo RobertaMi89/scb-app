@@ -16,7 +16,7 @@ function Footer({ className }: { className?: string }) {
                     <div className="flex flex-row md:flex-row justify-around w-full">
                         <Button
                             onClick={() => selectView(Views.FAVORITES)}
-                            className={`text-gray-600 dark:text-gray-300 flex flex-col items-center  ${view == Views.FAVORITES ? 'font-bold text-blue-500' : ''}`}
+                            className={`text-gray-600 dark:text-gray-300 flex flex-col items-center  ${view == Views.FAVORITES ? ' text-blue-500' : ''}`}
                             aria-label={t("footer.goToFavorites")}
                         >
                             <svg
@@ -41,7 +41,7 @@ function Footer({ className }: { className?: string }) {
                         <AddContactButton />
                         <Button
                             onClick={() => selectView(Views.CONTACTS)}
-                            className={`text-gray-600 dark:text-gray-300 flex flex-col items-center ${view == Views.CONTACTS ? 'font-bold text-blue-500' : ''}`}
+                            className={`text-gray-600 dark:text-gray-300 flex flex-col items-center ${view == Views.CONTACTS ? ' text-blue-500' : ''}`}
                             aria-label={t("footer.goToContacts")}
                         >
                             <svg
