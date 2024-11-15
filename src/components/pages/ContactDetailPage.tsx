@@ -108,7 +108,7 @@ const ContactDetailPage = () => {
 
                 </div>
                 <div className={`flex-grow space-y-4 flex justify-center sm:h-[calc(100vh-18rem)] sm:w-full md:max-w-96 md:max-h-[calc(100vh-30rem)]'}`}>
-                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-5 p-10 shadow-md shadow-gray-300 w-[90%] md:w-[100%]`}>
+                    <ul className={`space-y-2 bg-gray-100 rounded-lg h-fit mt-5 p-10 shadow-md shadow-gray-300 dark:shadow-gray-600 w-[90%] md:w-[100%]  dark:bg-gray-300`}>
 
                         <li className="flex justify-between">
                             <div className="text-lg font-semibold  max-w-[85%]">

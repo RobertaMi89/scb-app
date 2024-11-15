@@ -7,7 +7,7 @@ import ContactDetailPage from './components/pages/ContactDetailPage';
 import { ToastProvider } from './context/ToastContext';
 import Toast from './components/atoms/Toast';
 import View from './components/organisms/View';
-import detailBg from './assets/bg.svg'
+import detailBg from './assets/bg.svg';
 import { useView } from './context/ViewContext';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
                   className={`flex-grow overflow-auto md:max-w-fit  ${((!isDetailPageOpen && isMobile) || !isMobile) ? '' : 'hidden'}`}
                 />
                 <div
-                  className={`flex-1 flex justify-center`}
+                  className={`flex-1 flex justify-center  bg-black/30 bg-blend-multiply`}
                   style={{
                     backgroundImage: `url(${detailBg})`,
                     backgroundSize: 'cover',
