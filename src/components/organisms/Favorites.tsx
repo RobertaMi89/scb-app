@@ -64,7 +64,7 @@ const Favorites: React.FC<FavoritestProps> = ({ show }) => {
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                                             {contact.name} {contact.surname}
                                         </p>
-                                        <p>
+                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                                             {contact.email.length > 30
                                                 ? contact.email.slice(0, 29).concat('...')
                                                 : contact.email}
