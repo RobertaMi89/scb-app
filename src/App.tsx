@@ -10,11 +10,13 @@ import Toast from './components/atoms/Toast';
 import View from './components/organisms/View';
 import { useEffect, useState } from 'react';
 import detailBg from './assets/bg.svg'
+import { useView } from './context/ViewContext';
 
 function App() {
   const { t } = useTranslation();
   const location = useLocation();
   const [isDetailPage, setIsDetailPage] = useState<boolean>(false);
+  const { isMobile } = useView();
 
   useEffect(() => {
     setIsDetailPage(location.pathname.startsWith("/contact/"));
@@ -34,7 +36,7 @@ function App() {
 
               <div className="flex flex-1 flex-col md:flex-row">
                 <View
-                  className={`flex-grow overflow-auto ${(!isDetailPage) ? '' : 'hidden'} md:max-w-fit`}
+                  className={`flex-grow overflow-auto md:max-w-fit  ${((!isDetailPage && isMobile) || !isMobile) ? '' : 'hidden'}`}
                 />
                 <div
                   className={`flex-1 ${isDetailPage ? 'block' : 'hidden'} md:flex justify-center`}
