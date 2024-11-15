@@ -9,7 +9,10 @@ export enum Views {
 interface ViewContextType {
     view: Views | null;
     setView: (view: Views) => void
+    setIsDetailPageOpen: (isOpen: boolean) => void
     isMobile: boolean;
+    isDetailPageOpen: boolean;
+
 }
 
 const ViewContext = createContext<ViewContextType | undefined>(undefined);
@@ -30,6 +33,7 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
     const [view, setView] = useState<Views | null>(Views.CONTACTS);
     const [lastView, setLastView] = useState<Views>(Views.CONTACTS);
     const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [isDetailPageOpen, setIsDetailPageOpen] = useState<boolean>(false);
     const location = useLocation()
 
     useEffect(() => {
@@ -64,7 +68,7 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
 
 
     return (
-        <ViewContext.Provider value={{ view, setView, isMobile }}>
+        <ViewContext.Provider value={{ view, setView, isMobile, isDetailPageOpen, setIsDetailPageOpen }}>
             {children}
         </ViewContext.Provider>
     );

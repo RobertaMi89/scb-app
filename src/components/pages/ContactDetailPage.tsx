@@ -10,9 +10,11 @@ import ContactAvatar from "../atoms/ContactAvatar";
 import Loading from "../atoms/Loading";
 import { useContacts } from "../../context/ContactsContext";
 import { useNavigate } from "react-router-dom";
+import { useView } from "../../context/ViewContext";
 
 const ContactDetailPage = () => {
     const navigate = useNavigate()
+    const { setIsDetailPageOpen } = useView();
     const { contacts, deleteContact } = useContacts();
     const { t } = useTranslation();
     const { id } = useParams<{ id: string }>();
@@ -21,6 +23,12 @@ const ContactDetailPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const { showToast } = useToast();
+
+    useEffect(() => {
+        setIsDetailPageOpen(true)
+        return () => setIsDetailPageOpen(false)
+
+    }, [setIsDetailPageOpen])
 
     useEffect(() => {
         if (id) {
@@ -52,7 +60,6 @@ const ContactDetailPage = () => {
         navigator.clipboard.writeText(text)
             .then(() => {
                 showToast(t('contactDetailPage.copy'), 'success')
-                console.log("Testo copiato negli appunti!");
             })
             .catch((err) => console.error("Errore nel copiare il testo: ", err));
     };
@@ -79,7 +86,7 @@ const ContactDetailPage = () => {
 
     return (
         <>
-            <div className={`mx-auto md:max-w-[75%] md:w-96 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
+            <div className={`flex flex-col md:max-w-[75%] md:w-96 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
                 <div className="flex items-center justify-start">
                     <Link
                         to="/"
@@ -254,7 +261,6 @@ const ContactDetailPage = () => {
                 </div>
             )
             }
-
         </>
     );
 };

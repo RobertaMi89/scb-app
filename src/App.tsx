@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { LanguageProvider } from "./context/LanguageContext";
 import { ContactsProvider } from './context/ContactsContext';
 import { useTranslation } from 'react-i18next';
@@ -8,20 +8,12 @@ import ContactDetailPage from './components/pages/ContactDetailPage';
 import { ToastProvider } from './context/ToastContext';
 import Toast from './components/atoms/Toast';
 import View from './components/organisms/View';
-import { useEffect, useState } from 'react';
 import detailBg from './assets/bg.svg'
 import { useView } from './context/ViewContext';
 
 function App() {
   const { t } = useTranslation();
-  const location = useLocation();
-  const [isDetailPage, setIsDetailPage] = useState<boolean>(false);
-  const { isMobile } = useView();
-
-  useEffect(() => {
-    setIsDetailPage(location.pathname.startsWith("/contact/"));
-  }, [location.pathname]);
-
+  const { isMobile, isDetailPageOpen } = useView();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -30,16 +22,16 @@ function App() {
           <ContactsProvider>
             <Toast />
             <div className="flex flex-col flex-1 basis-auto overflow-hidden">
-              {((!isDetailPage && isMobile) || !isMobile) &&
+              {((!isDetailPageOpen && isMobile) || !isMobile) &&
                 <Header aria-label={t("header.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
               }
 
               <div className="flex flex-1 flex-col md:flex-row">
                 <View
-                  className={`flex-grow overflow-auto md:max-w-fit  ${((!isDetailPage && isMobile) || !isMobile) ? '' : 'hidden'}`}
+                  className={`flex-grow overflow-auto md:max-w-fit  ${((!isDetailPageOpen && isMobile) || !isMobile) ? '' : 'hidden'}`}
                 />
                 <div
-                  className={`flex-1 ${isDetailPage ? 'block' : 'hidden'} md:flex justify-center`}
+                  className={`flex-1 ${isDetailPageOpen ? 'block' : 'hidden'} md:flex justify-center`}
                   style={{
                     backgroundImage: `url(${detailBg})`,
                     backgroundSize: 'cover',
@@ -52,7 +44,7 @@ function App() {
                   </Routes>
                 </div>
               </div>
-              {((!isDetailPage && isMobile) || !isMobile) && (
+              {((!isDetailPageOpen && isMobile) || !isMobile) && (
                 <Footer aria-label={t("footer.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
               )}
             </div>
