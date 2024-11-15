@@ -24,31 +24,49 @@ function App() {
 
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col">
       <ToastProvider>
         <LanguageProvider>
           <ContactsProvider>
             <Toast />
-            <div className="flex flex-col flex-1 overflow-hidden">
-              {((!isDetailPage && isMobile) || !isMobile) && <Header aria-label={t("header.navigation")} className="basis-[16.6666%] flex-shrink-0" />}
+            <div className="flex flex-col flex-1 basis-auto overflow-hidden">
+              {/* Header visibile su mobile e desktop */}
+              {((!isDetailPage)) && (
+                <Header aria-label={t("header.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
+              )}
 
-              <div className={`${isMobile ? '' : `flex flex-row`}`}>
-                <View className={`flex-grow overflow-auto ${isMobile ? '' : 'max-w-fit'} ${((!isDetailPage && isMobile) || !isMobile) ? '' : 'hidden'}`} />
+              <div className="flex flex-1 flex-col md:flex-row">
+                {/* View visibile su mobile e desktop */}
+                <View
+                  className={`flex-grow overflow-auto ${(!isDetailPage) ? '' : 'hidden'} md:max-w-fit`}
+                />
 
-                <div className={`${isMobile ? '' : 'w-[69%] min-h-[100%] flex justify-center'}`} style={{ backgroundImage: `url(${detailBg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
+                {/* Dettaglio della pagina del contatto */}
+                <div
+                  className={`flex-1 ${isDetailPage ? 'block' : 'hidden'} md:flex justify-center`}
+                  style={{
+                    backgroundImage: `url(${detailBg})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
                   <Routes>
                     <Route path="/" element={<Outlet />} />
                     <Route path="/contact/:id" element={<ContactDetailPage />} />
                   </Routes>
                 </div>
-
               </div>
-              {((!isDetailPage && isMobile) || !isMobile) && <Footer aria-label={t("footer.navigation")} className="basis-[16.6666%]  flex-shrink-0" />}
+
+              {/* Footer visibile su mobile e desktop */}
+              {((!isDetailPage)) && (
+                <Footer aria-label={t("footer.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
+              )}
             </div>
           </ContactsProvider>
         </LanguageProvider>
       </ToastProvider>
     </div>
+
   );
 }
 
