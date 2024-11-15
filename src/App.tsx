@@ -26,7 +26,7 @@ function App() {
               }
               <div className="flex flex-1 flex-col md:flex-row">
                 <View
-                  className={`flex-grow overflow-auto md:max-w-fit ${((!isDetailPageOpen && isMobile) || !isMobile) ? '' : 'hidden'}`}
+                  className={`flex-grow md:max-w-[calc(100vw-60rem)] ${((!isDetailPageOpen && isMobile) || !isMobile) ? '' : 'hidden'}`}
                 />
                 <div
                   className={`flex-1 flex justify-center dark:bg-black/30 dark:bg-blend-multiply`}

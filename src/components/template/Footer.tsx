@@ -11,7 +11,7 @@ function Footer({ className }: { className?: string }) {
 
     return (
         <div className={className}>
-            <footer className="bg-gray-50 dark:bg-gray-800 mt-auto basis-1/6 w-full  border border-t-gray-200" role="contentinfo">
+            <footer className="bg-gray-100 dark:bg-gray-800 mt-auto basis-1/6 w-full  border border-t-gray-200" role="contentinfo">
                 <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
                     <div className="flex flex-row md:flex-row justify-around w-full">
                         <Button
