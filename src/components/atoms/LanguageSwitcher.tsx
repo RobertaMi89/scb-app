@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Select, { SingleValue } from "react-select";
 import Italy from "../../assets/italy.svg";
 import UK from "../../assets/uk.svg";
+import Loading from "./Loading";
 
 const LanguageSwitcher = () => {
     const { t, i18n } = useTranslation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [languageLoaded, setLanguageLoaded] = useState(false);
+
+    useEffect(() => {
+        setLanguageLoaded(true);
+    }, [i18n.language]);
 
     const handleLanguageChange = (selectedOption: SingleValue<{ value: string; label: JSX.Element }>) => {
         if (selectedOption) {
@@ -16,21 +22,26 @@ const LanguageSwitcher = () => {
     };
 
     const options = [
-        { value: "it", label: <img src={Italy} alt={t('italian_flag')} className="w-6 h-6 mr-2" /> },
-        { value: "en", label: <img src={UK} alt={t('british_flag')} className="w-6 h-6 mr-2" /> }
+        { value: "it-IT", label: <img src={Italy} alt={t('italian_flag')} className="w-6 h-6 mr-2" /> },
+        { value: "en-EN", label: <img src={UK} alt={t('british_flag')} className="w-6 h-6 mr-2" /> }
     ];
+
+    if (!languageLoaded) {
+        console.log(i18n.language)
+        return <Loading />
+    }
 
     return (
         <div className="relative me-2 focus:outline-none">
             <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="flex items-center focus:outline-none"
-                aria-label={t(i18n.language === "it" ? 'switch_to_english' : 'switch_to_italian')}
+                aria-label={t(i18n.language === "it-IT" ? 'switch_to_english' : 'switch_to_italian')}
                 aria-haspopup="listbox"
             >
                 <img
-                    src={i18n.language === "it" ? Italy : UK}
-                    alt={i18n.language === "it" ? t('italian_flag') : t('british_flag')}
+                    src={i18n.language === "it-IT" ? Italy : UK}
+                    alt={i18n.language === "it-IT" ? t('italian_flag') : t('british_flag')}
                     className="w-6 h-6"
                 />
             </button>
