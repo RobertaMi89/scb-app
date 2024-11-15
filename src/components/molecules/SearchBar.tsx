@@ -9,7 +9,6 @@ import Loading from "../atoms/Loading";
 import { useToast } from "../../context/ToastContext";
 import { useView, Views } from "../../context/ViewContext";
 import { useContacts } from "../../context/ContactsContext";
-import i18n from "../../services/i18n";
 
 interface SearchBarProps {
     onSearch: (filteredContacts: Contact[]) => void;
@@ -33,8 +32,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
         sortContacts(sortBy, ascending);
     }, [contacts]);
 
-    useEffect(() => { setDropdownLabel((prev) => prev) }, [dropdownLabel, i18n.language])
-
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setContactSearchQueryText(value);
@@ -54,7 +51,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, contacts }) => {
     const handleSortChange = (criteria: "name" | "surname" | "email") => {
         setSortBy(criteria);
         sortContacts(criteria, ascending);
-        setDropdownLabel(t(`searchBar.sortBy${criteria.charAt(0).toUpperCase() + criteria.slice(1)}`));
+        setDropdownLabel(`searchBar.sortBy${criteria.charAt(0).toUpperCase() + criteria.slice(1)}`);
         setIsDropdownOpen(false);
     };
 
