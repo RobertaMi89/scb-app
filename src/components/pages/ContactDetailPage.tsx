@@ -83,7 +83,7 @@ const ContactDetailPage = () => {
                 <div className="flex items-center justify-start">
                     <Link
                         to="/"
-                        className="absolute top-4 left-4 z-10 text-gray-600 hover:text-gray-800"
+                        className="absolute top-4 left-4 z-10 text-gray-600 hover:text-gray-800 md:hidden lg:hidden"
                         aria-label={t("backToHome")}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-8 h-8 hidden md:block" aria-label={t("backToHomeAlt")}>
                             <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
@@ -140,7 +140,7 @@ const ContactDetailPage = () => {
                             </button>
                         </li>
                         <li>
-                            <div className={`flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 mt-5 md:hidden`}>
+                            <div className={`hidden flex justify-center items-center space-x-4 bg-gray-50 border border-t-gray-200 h-20 mt-5 md:block`}>
                                 <Button
                                     onClick={handleOpenEditModal}
                                     className="px-6 py-2 flex flex-col items-center text-black rounded-full hover:bg-gray-200 transition duration-200"
@@ -252,7 +252,8 @@ const ContactDetailPage = () => {
                         </div>
                     </div>
                 </div>
-            )}
+            )
+            }
 
         </>
     );
