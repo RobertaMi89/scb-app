@@ -1,4 +1,3 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
 import { LanguageProvider } from "./context/LanguageContext";
 import { ContactsProvider } from './context/ContactsContext';
 import { useTranslation } from 'react-i18next';
@@ -37,10 +36,7 @@ function App() {
                     backgroundRepeat: 'no-repeat',
                   }}
                 >
-                  <Routes>
-                    <Route path="/" element={<Outlet />} />
-                    <Route path="/contact/:id" element={<ContactDetailPage />} />
-                  </Routes>
+                  <ContactDetailPage />
                 </div>
               </div>
               {((!isDetailPageOpen && isMobile) || !isMobile) && (

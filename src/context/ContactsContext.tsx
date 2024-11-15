@@ -26,6 +26,8 @@ interface ContactsContextType {
     setSortBy: (criteria: "name" | "surname" | "email") => void;
     ascending: boolean;
     toggleSortOrder: () => void;
+    detailContactId: string | null;
+    setDetailContactId: (detailContactId: string | null) => void;
 }
 
 const ContactsContext = createContext<ContactsContextType | undefined>(undefined);
@@ -46,6 +48,7 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
     const [error, setError] = useState<string | null>(null);
     const [sortBy, setSortBy] = useState<"name" | "surname" | "email">("name");
     const [ascending, setAscending] = useState<boolean>(true);
+    const [detailContactId, setDetailContactId] = useState<string | null>(null);
 
     const createContact = async (contact: Contact): Promise<boolean> => {
         try {
@@ -152,6 +155,8 @@ export const ContactsProvider: React.FC<ContactsProviderProps> = ({ children }) 
                 setSortBy,
                 ascending,
                 toggleSortOrder,
+                detailContactId,
+                setDetailContactId
             }}
         >
             {children}

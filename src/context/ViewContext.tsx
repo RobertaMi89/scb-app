@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 export enum Views {
     FAVORITES = "FAVORITES",
@@ -31,10 +30,8 @@ interface ViewProviderProps {
 
 export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
     const [view, setView] = useState<Views | null>(Views.CONTACTS);
-    const [lastView, setLastView] = useState<Views>(Views.CONTACTS);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isDetailPageOpen, setIsDetailPageOpen] = useState<boolean>(false);
-    const location = useLocation()
 
     useEffect(() => {
         const handleResize = () => {
@@ -48,23 +45,6 @@ export const ViewProvider: React.FC<ViewProviderProps> = ({ children }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
-
-    useEffect(() => {
-        if (location.pathname.length > 1 && isMobile) {
-            setView(null)
-        } else {
-            setView(lastView)
-        }
-
-    }, [isMobile, location.pathname])
-
-    useEffect(() => {
-        if (view !== null) {
-            setLastView(view)
-        }
-    }, [view])
-
 
 
     return (

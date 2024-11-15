@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useContacts } from '../../context/ContactsContext';
 import ContactAvatar from '../atoms/ContactAvatar';
@@ -10,10 +9,11 @@ interface ContactListProps {
   show: boolean
 }
 const ContactList: React.FC<ContactListProps> = ({ show }) => {
-  const { contacts, setContacts, loading, setLoading, filteredContacts, fetchContacts, updateContact } = useContacts();
+  const { contacts, setContacts, loading, setLoading, filteredContacts, fetchContacts, updateContact, setDetailContactId: setDetailContact } = useContacts();
   const { t } = useTranslation();
   const { showToast } = useToast();
   const [contactsLoading, setContactsLoading] = useState<boolean>(true)
+
   useEffect(() => {
     fetchContacts()
     setContactsLoading(false)
@@ -29,6 +29,10 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
     updateContact({ ...contactToUpdate, favorite: !contactToUpdate.favorite })
   };
 
+  const handleShowDetail = (contactId: string) => {
+    setDetailContact(contactId)
+  }
+
   if (loading && show) {
     return <Loading />;
   }
@@ -42,7 +46,7 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
 
             return (
               <li key={contact.id} className="p-3 ps-0 sm:pb-4 flex items-center">
-                <Link to={`/contact/${contact.id}`} aria-label={t('contact.viewDetails')} style={{ width: "90%" }}>
+                <button onClick={() => handleShowDetail(contact.id)} aria-label={t('contact.viewDetails')} className=' text-start' style={{ width: "90%" }}>
                   <div className="flex items-center space-x-4 rtl:space-x-reverse">
                     <div className="flex-shrink-0">
                       <ContactAvatar name={contact.name} image={contact.image} />
@@ -54,7 +58,7 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
                       <p className="text-sm text-gray-900 truncate dark:text-white">{contact.email.length > 30 ? contact.email.slice(0, 29).concat("...") : contact.email}</p>
                     </div>
                   </div>
-                </Link>
+                </button>
                 <div className="flex items-center w-[10%] space-x-2">
                   <button
                     id={'star-'.concat(contact.id)}

@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { Contact } from "../../types/Contact";
 import { useToast } from "../../context/ToastContext";
 import Modal from "../molecules/Modal";
@@ -9,15 +7,12 @@ import Button from "../atoms/Button";
 import ContactAvatar from "../atoms/ContactAvatar";
 import Loading from "../atoms/Loading";
 import { useContacts } from "../../context/ContactsContext";
-import { useNavigate } from "react-router-dom";
 import { useView } from "../../context/ViewContext";
 
 const ContactDetailPage = () => {
-    const navigate = useNavigate()
-    const { setIsDetailPageOpen } = useView();
-    const { contacts, deleteContact } = useContacts();
+    const { setIsDetailPageOpen, isDetailPageOpen } = useView();
+    const { contacts, deleteContact, setDetailContactId, detailContactId } = useContacts();
     const { t } = useTranslation();
-    const { id } = useParams<{ id: string }>();
     const [contact, setContact] = useState<Contact | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -25,26 +20,33 @@ const ContactDetailPage = () => {
     const { showToast } = useToast();
 
     useEffect(() => {
-        setIsDetailPageOpen(true)
-        return () => setIsDetailPageOpen(false)
-
-    }, [setIsDetailPageOpen])
-
-    useEffect(() => {
-        if (id) {
-            const contactData = contacts.find((contact) => contact.id.toString() === id);
+        setIsDetailPageOpen(false)
+        if (detailContactId) {
+            const contactData = contacts.find((contact) => contact.id.toString() === detailContactId.toString());
             if (!contactData) return;
             setContact(contactData);
+            setIsDetailPageOpen(true)
         }
-    }, [contacts, id]);
+        return () => {
+            setIsDetailPageOpen(false);
+        }
+
+    }, [detailContactId, setIsDetailPageOpen, contacts])
+
+    useEffect(() => {
+
+        if (!isDetailPageOpen) setDetailContactId(null);
+    }, [
+        isDetailPageOpen, setDetailContactId
+    ])
 
     const handleDeleteContact = () => {
-        if (id) {
-            deleteContact(id).then((isDeleted) => {
+        if (detailContactId) {
+            deleteContact(detailContactId).then((isDeleted) => {
                 if (isDeleted) {
                     handleCloseConfirmModal()
                     handleCloseEditModal()
-                    navigate('/')
+                    setIsDetailPageOpen(false)
                     showToast(t("contactDetailPage.deleteSuccess"), "success");
                 } else {
                     setError(t("contactDetailPage.deleteError"));
@@ -80,6 +82,8 @@ const ContactDetailPage = () => {
         setIsConfirmModalOpen(false);
     };
 
+    if (!isDetailPageOpen) return;
+
     if (!contact) {
         return <Loading />;
     }
@@ -88,15 +92,13 @@ const ContactDetailPage = () => {
         <>
             <div className={`flex flex-col w-full md:max-w-[75%] md:w-96 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent`}>
                 <div className="flex items-center justify-start">
-                    <Link
-                        to="/"
+                    <button onClick={() => setIsDetailPageOpen(false)}
                         className="absolute top-4 left-4 z-10 text-gray-600 hover:text-gray-800 md:hidden lg:hidden"
                         aria-label={t("backToHome")}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-8 h-8" aria-label={t("backToHomeAlt")}>
                             <path fillRule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
                         </svg>
-
-                    </Link>
+                    </button>
 
                     <ContactAvatar
                         name={`${contact.name} ${contact.surname}`}

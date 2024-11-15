@@ -1,5 +1,4 @@
 import { useContacts } from '../../context/ContactsContext';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Contact } from "../../types/Contact";
 import ContactAvatar from "../atoms/ContactAvatar";
@@ -9,7 +8,7 @@ interface FavoritestProps {
 }
 
 const Favorites: React.FC<FavoritestProps> = ({ show }) => {
-    const { contacts, loading } = useContacts();
+    const { contacts, loading, setDetailContactId } = useContacts();
     const { t } = useTranslation();
     if (loading && show) {
         return <Loading />;
@@ -51,10 +50,10 @@ const Favorites: React.FC<FavoritestProps> = ({ show }) => {
                             key={contact.id}
                             className="p-3 ps-0 sm:pb-4 flex justify-between items-center"
                         >
-                            <Link
-                                to={`/contact/${contact.id}`}
+                            <button
+                                onClick={() => setDetailContactId(contact.id)}
                                 aria-label={t('contact.viewDetails')}
-                                className="w-full"
+                                className="w-full text-start"
                             >
                                 <div className="flex items-center space-x-4 rtl:space-x-reverse">
                                     <div className="flex-shrink-0">
@@ -71,7 +70,7 @@ const Favorites: React.FC<FavoritestProps> = ({ show }) => {
                                         </p>
                                     </div>
                                 </div>
-                            </Link>
+                            </button>
                         </li>
                     ))}
                 </ul>
