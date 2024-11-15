@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Contact } from "../../types/Contact";
@@ -15,7 +15,6 @@ const ContactDetailPage = () => {
     const { contacts, deleteContact } = useContacts();
     const { t } = useTranslation();
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const [contact, setContact] = useState<Contact | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -35,7 +34,6 @@ const ContactDetailPage = () => {
         if (id) {
             deleteContact(id).then((isDeleted) => {
                 if (isDeleted) {
-                    navigate("/contacts");
                     showToast(t("contactDetailPage.deleteSuccess"), "success");
                 } else {
                     setError(t("contactDetailPage.deleteError"));

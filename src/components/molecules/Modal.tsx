@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, ChangeEvent } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useToast } from "../../context/ToastContext";
 import { Contact } from "../../types/Contact";
@@ -24,7 +24,6 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
     const { t } = useTranslation();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [image, setImage] = useState<string | null>(contact?.image || null);
-    const [description, setDescription] = useState<string>(contact?.description || "");
     const [name, setName] = useState<string>(contact?.name || "");
     const [surname, setSurname] = useState<string>(contact?.surname || "");
     const [phone, setPhone] = useState<string>(contact?.phone || "");
@@ -37,7 +36,6 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
     useEffect(() => {
         if (contact) {
             setImage(contact.image);
-            setDescription(contact.description || "");
             setName(contact.name);
             setSurname(contact.surname);
             setPhone(contact.phone);
@@ -101,7 +99,6 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
             surname,
             phone,
             email,
-            description,
             favorite,
             image
         }
@@ -126,7 +123,6 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
         if (email !== contactToUpdate.email) updatedFields.email = email;
         if (image !== contactToUpdate.image) updatedFields.image = image;
         if (favorite !== contactToUpdate.favorite) updatedFields.favorite = favorite;
-        if (description !== (contactToUpdate.description || "")) updatedFields.description = description;
 
         if (Object.keys(updatedFields).length === 0) {
             console.log("Nessuna modifica rilevata.");
@@ -143,10 +139,6 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
         setEmail(emailValue);
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setIsEmailValid(emailRegex.test(emailValue));
-    };
-
-    const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-        setDescription(event.target.value);
     };
 
     return isOpen ? (
@@ -298,13 +290,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                                 aria-labelledby="email"
                             />
                             <label htmlFor="notes" className="sr-only">{t("modal.notes")}</label>
-                            <textarea
-                                className="w-full p-2.5 border border-gray-300 rounded-lg text-gray-900 bg-gray-50 dark:bg-gray-600 dark:text-white"
-                                placeholder={t("modal.notes")}
-                                value={description}
-                                onChange={handleDescriptionChange}
-                                aria-labelledby="notes"
-                            ></textarea>
+
                         </form>
                     </div>
                 )}
