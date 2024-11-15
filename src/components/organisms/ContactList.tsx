@@ -46,7 +46,7 @@ const ContactList: React.FC<ContactListProps> = ({ show }) => {
 
             return (
               <li key={contact.id} className="p-3 ps-0 sm:pb-4 flex items-center">
-                <button onClick={() => handleShowDetail(contact.id)} aria-label={t('contact.viewDetails')} className=' text-start' style={{ width: "90%" }}>
+                <button onClick={() => handleShowDetail(contact.id)} aria-label={t('contact.viewDetails')} className='text-start' style={{ width: "90%" }}>
                   <div className="flex items-center space-x-4 rtl:space-x-reverse">
                     <div className="flex-shrink-0">
                       <ContactAvatar name={contact.name} image={contact.image} />
