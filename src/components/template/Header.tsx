@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../atoms/LanguageSwitcher";
 import SearchBar from "../molecules/SearchBar";
 
+
 function Header({ className }: { className?: string }) {
     const { contacts, setFilteredContacts } = useContacts();
     const { t } = useTranslation();
@@ -16,6 +17,7 @@ function Header({ className }: { className?: string }) {
         <>
             <div className={className}>
                 <div className="flex items-center justify-between p-3 bg-gray-50 border border-b-gray-200" role="banner">
+                    <div></div>
                     <SearchBar
                         onSearch={handleSearch}
                         contacts={contacts}
