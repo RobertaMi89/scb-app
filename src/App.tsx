@@ -25,7 +25,6 @@ function App() {
               {((!isDetailPageOpen && isMobile) || !isMobile) &&
                 <Header aria-label={t("header.navigation")} className="basis-[100%] md:basis-[16.6666%] flex-shrink-0" />
               }
-
               <div className="flex flex-1 flex-col md:flex-row">
                 <View
                   className={`flex-grow overflow-auto md:max-w-fit  ${((!isDetailPageOpen && isMobile) || !isMobile) ? '' : 'hidden'}`}
