@@ -31,7 +31,7 @@ function App() {
                   className={`flex-grow overflow-auto md:max-w-fit  ${((!isDetailPageOpen && isMobile) || !isMobile) ? '' : 'hidden'}`}
                 />
                 <div
-                  className={`flex-1 ${isDetailPageOpen ? 'block' : 'hidden'} md:flex justify-center`}
+                  className={`flex-1 flex justify-center`}
                   style={{
                     backgroundImage: `url(${detailBg})`,
                     backgroundSize: 'cover',

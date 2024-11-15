@@ -151,7 +151,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
         >
             <div
                 aria-describedby="modal-description"
-                className="modal-content relative h-full md:h-auto bg-white shadow dark:bg-gray-700 w-full max-w-xl md:rounded-lg lg:rounded-lg md:p-4"
+                className="modal-content relative flex flex-col h-full md:h-auto bg-white shadow dark:bg-gray-700 w-full max-w-xl md:rounded-lg lg:rounded-lg md:p-4"
             >
                 <div className="flex items-center justify-between border-b p-4">
                     <div className="flex items-center w-full justify-end">
@@ -181,7 +181,6 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
 
                 <div className="flex flex-col items-center justify-center my-5">
                     <div className="relative flex items-center justify-center">
-                        {/* Avatar */}
                         <button
                             type="button"
                             className="flex items-center space-x-2 rounded-full p-5"
@@ -283,7 +282,7 @@ const Modal = ({ onClose, isOpen, contact }: ModalProps) => {
                 {isLoading ? (
                     <Loading />
                 ) : (
-                    <div className="p-4 md:p-5 space-y-4">
+                    <div className="flex-grow p-4 md:p-5 space-y-4">
                         <form className="space-y-4" action="#" aria-labelledby="modal-form">
                             <label htmlFor="name" className="sr-only">
                                 {t("modal.name")}
