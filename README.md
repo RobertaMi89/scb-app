@@ -1,10 +1,10 @@
-#Simple Contact Book
+ #Simple Contact Book
 
-##Descrizione
+ ##Descrizione
 
 Simple Contact Book è un'applicazione per la gestione dei contatti, progettata per offrire un'interfaccia intuitiva e una serie di funzionalità avanzate per la gestione delle informazioni di contatto. L'app supporta la visualizzazione mobile e desktop (in modalità landscape) ed è completamente responsive.
 
-##Funzionalità principali:
+ ##Funzionalità principali:
 
 - Gestione dei contatti: Possibilità di aggiungere, modificare e cancellare contatti.
 
@@ -20,7 +20,7 @@ Simple Contact Book è un'applicazione per la gestione dei contatti, progettata 
 
 - Supporto multilingua: Possibilità di switchare tra la lingua italiana e inglese.
 
-##Tecnologie utilizzate
+ ##Tecnologie utilizzate
 
 Frontend: React con Vite e TypeScript.
 
@@ -28,7 +28,7 @@ Stile: Tailwind CSS.
 
 Database: Firebase per la gestione e la memorizzazione dei contatti.
 
-##Uso
+ ##Uso
 
 - Aggiungere un contatto: Inserisci i dettagli richiesti nel modulo e salva.
 
@@ -40,7 +40,7 @@ Database: Firebase per la gestione e la memorizzazione dei contatti.
 
 - Ricerca e ordinamento: Utilizza la barra di ricerca e i pulsanti di ordinamento per filtrare e visualizzare i contatti.
 
-##Licenza
+ ##Licenza
 
 Simple Contact Book è distribuito sotto la licenza MIT.
 
