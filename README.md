@@ -1,50 +1,47 @@
-# React + TypeScript + Vite
+#Simple Contact Book
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##Descrizione
 
-Currently, two official plugins are available:
+Simple Contact Book è un'applicazione per la gestione dei contatti, progettata per offrire un'interfaccia intuitiva e una serie di funzionalità avanzate per la gestione delle informazioni di contatto. L'app supporta la visualizzazione mobile e desktop (in modalità landscape) ed è completamente responsive.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##Funzionalità principali:
 
-## Expanding the ESLint configuration
+- Gestione dei contatti: Possibilità di aggiungere, modificare e cancellare contatti.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Campi del contatto: Ogni contatto include nome, cognome, email, numero di telefono e un'immagine.
 
-- Configure the top-level `parserOptions` property like this:
+- Avatar di default: Generazione automatica di un avatar con l'iniziale del nome se non viene caricata un'immagine.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Gestione dei preferiti: Contrassegna i contatti come preferiti per un accesso rapido.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Ricerca avanzata: Ricerca dei contatti per nome, cognome, email o numero di telefono.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Ordinamento personalizzato: Ordina i contatti per nome, cognome ed email in modo ascendente o discendente.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Supporto multilingua: Possibilità di switchare tra la lingua italiana e inglese.
+
+##Tecnologie utilizzate
+
+Frontend: React con Vite e TypeScript.
+
+Stile: Tailwind CSS.
+
+Database: Firebase per la gestione e la memorizzazione dei contatti.
+
+##Uso
+
+- Aggiungere un contatto: Inserisci i dettagli richiesti nel modulo e salva.
+
+- Modificare un contatto: Seleziona il contatto dalla lista e aggiorna i dettagli.
+
+- Rimuovere un contatto: Clicca sull'icona di eliminazione.
+
+- Impostare come preferito: Clicca sull'icona a forma di stella per aggiungere o rimuovere un contatto dai preferiti.
+
+- Ricerca e ordinamento: Utilizza la barra di ricerca e i pulsanti di ordinamento per filtrare e visualizzare i contatti.
+
+##Licenza
+
+Simple Contact Book è distribuito sotto la licenza MIT.
+
+Goditi la gestione dei contatti semplificata con Simple Contact Book! Se hai domande o suggerimenti, non esitare a contattarci.
